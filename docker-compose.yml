@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: denraf-postgres
+    environment:
+      POSTGRES_DB: denraf_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: denraf2024
+    ports:
+      - "5433:5432"
+    volumes:
+      - denraf-data:/var/lib/postgresql/data
+    networks:
+      - denraf-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  # Backend Spring Boot
+  app:
+    build: .
+    container_name: denraf-app
+    ports:
+      - "8080:8080"
+    environment:
+      # Conexión interna de Docker: se conecta al servicio "postgres" de arriba
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/denraf_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: denraf2024
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: denraf-secret-key-muy-larga-para-que-sea-segura-2024-emersondev
+      JWT_EXPIRATION: 86400000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - denraf-network
+    restart: on-failure
+volumes:
+  denraf-data:
+networks:
+  denraf-network:
+    driver: bridge

@@ -1,0 +1,194 @@
+{
+  "info": {
+    "name": "Productos API - Denraf",
+    "description": "Colección para validar todos los endpoints de Producto",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Crear Producto",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.collectionVariables.set(\"producto_id\", jsonData.id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Camiseta Deportiva XL\",\n  \"category\": \"Ropa\",\n  \"brand\": \"Nike\",\n  \"price\": 29.99,\n  \"cost\": 15.00,\n  \"stock\": 50,\n  \"minStock\": 10,\n  \"sizes\": [\"S\", \"M\", \"L\"],\n  \"colors\": [\"Rojo\", \"Azul\"],\n  \"status\": \"active\",\n  \"barcode\": \"123456789\",\n  \"variants\": [\n    {\n      \"size\": \"S\",\n      \"color\": \"Rojo\",\n      \"stock\": 10,\n      \"barcode\": \"123-S-R\"\n    },\n    {\n      \"size\": \"M\",\n      \"color\": \"Azul\",\n      \"stock\": 20,\n      \"barcode\": \"123-M-A\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Obtener Todos los Productos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos?page=0&size=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Obtener Producto por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/{{producto_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "{{producto_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Obtener Variantes del Producto",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/{{producto_id}}/variantes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "{{producto_id}}",
+            "variantes"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Actualizar Producto",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Camiseta Deportiva Actualizada\",\n  \"category\": \"Ropa Deportiva\",\n  \"brand\": \"Adidas\",\n  \"price\": 35.00,\n  \"cost\": 18.00,\n  \"stock\": 60,\n  \"minStock\": 15,\n  \"sizes\": [\"S\", \"M\", \"L\", \"XL\"],\n  \"colors\": [\"Negro\", \"Blanco\"],\n  \"status\": \"active\",\n  \"barcode\": \"987654321\",\n  \"variants\": []\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos/{{producto_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "{{producto_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Obtener Productos con Stock Bajo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/stock-bajo",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "stock-bajo"
+          ]
+        }
+      }
+    },
+    {
+      "name": "7. Eliminar Producto",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/{{producto_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "{{producto_id}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "producto_id",
+      "value": ""
+    }
+  ]
+}
