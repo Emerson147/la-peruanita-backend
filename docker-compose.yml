@@ -3,17 +3,17 @@ services:
   # Base de datos PostgreSQL
   postgres:
     image: postgres:16-alpine
-    container_name: denraf-postgres
+    container_name: laperuanita-postgres
     environment:
-      POSTGRES_DB: denraf_db
+      POSTGRES_DB: laperuanita_db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: denraf2024
+      POSTGRES_PASSWORD: laperuanita2024
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
-      - denraf-data:/var/lib/postgresql/data
+      - laperuanita-data:/var/lib/postgresql/data
     networks:
-      - denraf-network
+      - laperuanita-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -22,25 +22,25 @@ services:
   # Backend Spring Boot
   app:
     build: .
-    container_name: denraf-app
+    container_name: laperuanita-app
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       # Conexión interna de Docker: se conecta al servicio "postgres" de arriba
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/denraf_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/laperuanita_db
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: denraf2024
+      SPRING_DATASOURCE_PASSWORD: laperuanita2024
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      JWT_SECRET: denraf-secret-key-muy-larga-para-que-sea-segura-2024-emersondev
+      JWT_SECRET: laperuanita-secret-key-muy-larga-para-que-sea-segura-2024-emersondev
       JWT_EXPIRATION: 86400000
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - denraf-network
+      - laperuanita-network
     restart: on-failure
 volumes:
-  denraf-data:
+  laperuanita-data:
 networks:
-  denraf-network:
+  laperuanita-network:
     driver: bridge
