@@ -20,6 +20,8 @@ public class MovimientoInventario {
   private String type; // entrada | ajuste
   private UUID productId;
   private UUID varianteId;
+  private UUID almacenOrigenId;
+  private UUID almacenDestinoId;
   private String productName;
   private Integer quantity;
   private Integer quantityBefore;

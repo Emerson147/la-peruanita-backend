@@ -7,7 +7,6 @@ import com.emersondev.infrastructure.web.dto.request.LoginRequest;
 import com.emersondev.infrastructure.web.dto.request.RegisterRequest;
 import com.emersondev.infrastructure.web.dto.response.AuthResponse;
 import com.emersondev.security.JwtService;
-import com.emersondev.security.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

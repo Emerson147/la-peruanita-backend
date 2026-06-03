@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
@@ -32,9 +30,7 @@ public class LiquidacionService {
   // CONFIGURACIÓN DEL MODELO DE FERIAS DE DENRAF
   // Jueves y Domingo — 2 ferias por semana
   // =============================================
-  private static final double DIAS_POR_FERIA = 3.5;
-  private static final int FERIAS_UMBRAL_CONGELADO = 8;  // >8 ferias = congelado
-  private static final int FERIAS_UMBRAL_LENTO = 4;      // 4-8 ferias = lento
+
 
   public List<LiquidacionProducto> calcularLiquidacion() {
     log.info("Calculando liquidación urgente — modelo ferias DenRaf");
@@ -72,7 +68,7 @@ public class LiquidacionService {
 
     // Clasificar con Strategy Pattern
     estrategias.stream()
-            .filter(e -> e.aplica(ferias))
+            .filter(e -> e.aplica(dias))
             .findFirst()
             .ifPresent(estrategia -> {
               log.debug("Estrategia '{}' → producto: {}",
@@ -107,32 +103,17 @@ public class LiquidacionService {
   }
 
   // =============================================
-  // CÁLCULO DE FERIAS SIN VENDER
-  // Cuenta jueves y domingos reales transcurridos
+  // CÁLCULO DE SEMANAS SIN VENDER (Equivalente a Ferias en DenRaf)
+  // Devuelve semanas transcurridas para adaptarlo a tienda física
   // =============================================
   int calcularFeriasSinVender(int diasSinVender) {
     if (diasSinVender <= 0) return 0;
-
-    LocalDate desde = LocalDate.now().minusDays(diasSinVender);
-    LocalDate hasta = LocalDate.now();
-    int ferias = 0;
-
-    LocalDate fecha = desde;
-    while (!fecha.isAfter(hasta)) {
-      DayOfWeek dia = fecha.getDayOfWeek();
-      // Solo cuenta jueves y domingos — los días de feria de DenRaf
-      if (dia == DayOfWeek.THURSDAY || dia == DayOfWeek.SUNDAY) {
-        ferias++;
-      }
-      fecha = fecha.plusDays(1);
-    }
-
-    return ferias;
+    return diasSinVender / 7;
   }
 
   // =============================================
-  // ROTACIÓN POR FERIA
-  // Cuántas unidades se venden por feria en promedio
+  // ROTACIÓN SEMANAL (Equivalente a Rotación por Feria en DenRaf)
+  // Cuántas unidades se venden por semana en promedio (últimos 30 días / 4 semanas)
   // =============================================
   private double calcularRotacionPorFeria(Producto producto) {
     LocalDateTime hace30Dias = LocalDateTime.now().minusDays(30);
@@ -148,8 +129,8 @@ public class LiquidacionService {
             .mapToInt(item -> item.getQuantity())
             .sum();
 
-    // 8 ferias en 30 días (2 por semana)
-    return (double) totalVendido / 8;
+    // 4 semanas en 30 días
+    return (double) totalVendido / 4.0;
   }
 
   // =============================================

@@ -34,6 +34,12 @@ public class MovimientoEntity {
   @Column(name = "variante_id")
   private UUID varianteId;
 
+  @Column(name = "almacen_origen_id")
+  private UUID almacenOrigenId;
+
+  @Column(name = "almacen_destino_id")
+  private UUID almacenDestinoId;
+
   @Column(name = "product_name")
   private String productName;
 

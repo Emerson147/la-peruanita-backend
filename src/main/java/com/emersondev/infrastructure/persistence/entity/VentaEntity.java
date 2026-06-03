@@ -35,6 +35,9 @@ public class VentaEntity {
   @Column(name = "customer_id")
   private UUID customerId;
 
+  @Column(name = "almacen_id")
+  private UUID almacenId;
+
   @OneToMany(mappedBy = "venta",
           cascade = CascadeType.ALL,
           fetch = FetchType.EAGER)

@@ -206,7 +206,7 @@ public class ObtenerDashboardUseCase {
   private BigDecimal calcularInversion(List<Producto> productos) {
     return productos.stream()
             .map(p -> p.getCost().multiply(
-                    BigDecimal.valueOf(p.getStock())))
+                    BigDecimal.valueOf(p.getStockTotal())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
@@ -245,7 +245,7 @@ public class ObtenerDashboardUseCase {
         String dia = venta.getCreatedAt()
                 .getDayOfWeek()
                 .getDisplayName(TextStyle.FULL,
-                        new Locale("es", "PE"));
+                        Locale.forLanguageTag("es-PE"));
 
         // Capitalizar primera letra
         String diaCapitalizado = dia.substring(0, 1)

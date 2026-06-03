@@ -21,6 +21,7 @@ public class VentaDtoMapper {
     venta.setUserId(request.getUserId());
     venta.setVendedorId(request.getVendedorId());
     venta.setCustomerId(request.getCustomerId());
+    venta.setAlmacenId(request.getAlmacenId());
     venta.setDiscount(request.getDiscount());
     venta.setTax(request.getTax());
     venta.setPaymentMethod(request.getPaymentMethod());
@@ -49,6 +50,7 @@ public class VentaDtoMapper {
     response.setUserId(venta.getUserId());
     response.setVendedorId(venta.getVendedorId());
     response.setCustomerId(venta.getCustomerId());
+    response.setAlmacenId(venta.getAlmacenId());
     response.setSubtotal(venta.getSubtotal());
     response.setDiscount(venta.getDiscount());
     response.setTax(venta.getTax());

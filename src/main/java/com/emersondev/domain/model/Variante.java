@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,23 +18,20 @@ public class Variante {
   private UUID productId;
   private String size;
   private String color;
-  private Integer stock;
   private String barcode;
   private Long version;
+  private List<Inventario> inventarios;
+
+  public Integer getStockTotal() {
+    if (this.inventarios == null) return 0;
+    return this.inventarios.stream()
+            .mapToInt(Inventario::getStock)
+            .sum();
+  }
 
   // Regla de negocio — tiene stock disponible
   public boolean tieneStock() {
-    return this.stock != null && this.stock > 0;
-  }
-
-  // Regla de negocio — descontar stock
-  public void descontarStock(int cantidad) {
-    if (cantidad > this.stock) {
-      throw new RuntimeException(
-              "Stock insuficiente para variante " +
-                      this.size + " - " + this.color);
-    }
-    this.stock -= cantidad;
+    return getStockTotal() > 0;
   }
 
 }

@@ -1,6 +1,5 @@
 package com.emersondev.application.usecase.cliente;
 
-import com.emersondev.domain.exception.ClienteNotFoundException;
 import com.emersondev.domain.model.Cliente;
 import com.emersondev.domain.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;

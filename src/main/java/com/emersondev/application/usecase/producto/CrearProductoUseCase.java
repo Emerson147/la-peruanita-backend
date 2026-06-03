@@ -29,21 +29,12 @@ public class CrearProductoUseCase {
     if (producto.getStatus() == null) {
       producto.setStatus("active");
     }
-    if (producto.getMinStock() == null) {
-      producto.setMinStock(5);
-    }
+
     if (producto.getCost() == null) {
       producto.setCost(BigDecimal.ZERO);
     }
 
-    // Stock total = suma de stocks de todas las variantes
-    if (variantes != null && !variantes.isEmpty()) {
-      int stockTotal = variantes.stream()
-              .mapToInt(v -> v.getStock() != null ? v.getStock() : 0)
-              .sum();
-      producto.setStock(stockTotal);
-      log.info("Stock total calculado desde variantes: {}", stockTotal);
-    }
+    // Ya no se calcula el stock total aquí. Se maneja por Inventario
 
     producto.setCreatedAt(LocalDateTime.now());
     producto.setUpdatedAt(LocalDateTime.now());
@@ -57,10 +48,9 @@ public class CrearProductoUseCase {
       variantes.forEach(variante -> {
         variante.setProductId(creado.getId());
         varianteRepository.save(variante);
-        log.info("Variante guardada: {} - {} (stock: {})",
+        log.info("Variante guardada: {} - {}",
                 variante.getSize(),
-                variante.getColor(),
-                variante.getStock());
+                variante.getColor());
       });
     }
 

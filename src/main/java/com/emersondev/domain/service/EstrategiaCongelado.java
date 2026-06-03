@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class EstrategiaCongelado implements EstrategiaLiquidacion {
 
   @Override
-  public boolean aplica(Integer feriasSinVender) {
-    return feriasSinVender > 8; // >8 ferias = congelado
+  public boolean aplica(Integer diasSinVender) {
+    return diasSinVender > 60; // >60 días = congelado
   }
 
   @Override

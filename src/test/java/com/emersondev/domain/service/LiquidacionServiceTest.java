@@ -2,8 +2,8 @@ package com.emersondev.domain.service;
 
 import com.emersondev.domain.model.LiquidacionProducto;
 import com.emersondev.domain.model.Producto;
-import com.emersondev.domain.model.Venta;
-import com.emersondev.domain.model.VentaItem;
+import com.emersondev.domain.model.Variante;
+import com.emersondev.domain.model.Inventario;
 import com.emersondev.domain.repository.ProductoRepository;
 import com.emersondev.domain.repository.VentaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("LiquidacionService — Algoritmo de ferias")
@@ -51,7 +50,13 @@ class LiquidacionServiceTest {
     productoActivo.setCategoria("Casacas");
     productoActivo.setPrice(new BigDecimal("150.00"));
     productoActivo.setCost(new BigDecimal("90.00"));
-    productoActivo.setStock(5);
+    
+    Variante vActivo = new Variante();
+    Inventario iActivo = new Inventario();
+    iActivo.setStock(5);
+    vActivo.setInventarios(List.of(iActivo));
+    productoActivo.setVariantes(List.of(vActivo));
+    
     productoActivo.setStatus("active");
     productoActivo.setCreatedAt(
             LocalDateTime.now().minusDays(5));
@@ -63,19 +68,29 @@ class LiquidacionServiceTest {
     productoLento.setCategoria("Polos");
     productoLento.setPrice(new BigDecimal("35.00"));
     productoLento.setCost(new BigDecimal("18.00"));
-    productoLento.setStock(7);
+    
+    Variante vLento = new Variante();
+    Inventario iLento = new Inventario();
+    iLento.setStock(7);
+    vLento.setInventarios(List.of(iLento));
+    productoLento.setVariantes(List.of(vLento));
+    
     productoLento.setStatus("active");
     productoLento.setCreatedAt(
-            LocalDateTime.now().minusDays(20));
+            LocalDateTime.now().minusDays(40));
 
-    // Producto congelado — creado hace 70 días (más de 8 ferias)
+    // 4. Producto congelado (sin mov reciente, pero poco stock,
+    // debería estar en liquidación pero por lógica interna el servicio los lista si es baja rotación)
     productoCongelado = new Producto();
     productoCongelado.setId(UUID.randomUUID());
-    productoCongelado.setName("Casaca Drill Antigua");
-    productoCongelado.setCategoria("Casacas");
     productoCongelado.setPrice(new BigDecimal("100.00"));
     productoCongelado.setCost(new BigDecimal("60.00"));
-    productoCongelado.setStock(3);
+    
+    Variante vCongelado = new Variante();
+    com.emersondev.domain.model.Inventario iCongelado = new com.emersondev.domain.model.Inventario();
+    iCongelado.setStock(3);
+    vCongelado.setInventarios(java.util.List.of(iCongelado));
+    productoCongelado.setVariantes(java.util.List.of(vCongelado));
     productoCongelado.setStatus("active");
     productoCongelado.setCreatedAt(
             LocalDateTime.now().minusDays(70));
@@ -86,7 +101,7 @@ class LiquidacionServiceTest {
   // =============================================
 
   @Test
-  @DisplayName("Producto creado hace 5 días → menos de 4 ferias → ACTIVO")
+  @DisplayName("Producto creado hace 5 días → menos de 30 días → ACTIVO")
   void productoNuevo_debeSerActivo() {
     // Arrange
     int dias = 5;
@@ -99,10 +114,10 @@ class LiquidacionServiceTest {
   }
 
   @Test
-  @DisplayName("Producto creado hace 20 días → entre 4 y 8 ferias → LENTO")
-  void productoSinVender20Dias_debeSerLento() {
+  @DisplayName("Producto creado hace 40 días → entre 4 y 8 semanas → LENTO")
+  void productoSinVender40Dias_debeSerLento() {
     // Arrange
-    int dias = 20;
+    int dias = 40;
 
     // Act
     int ferias = liquidacionService.calcularFeriasSinVender(dias);

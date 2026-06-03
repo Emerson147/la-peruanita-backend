@@ -38,18 +38,7 @@ public class ActualizarProductoUseCase {
     productoExistente.setPrice(productoActualizado.getPrice());
     productoExistente.setCost(productoActualizado.getCost());
     
-    // Recalcular stock si hay variantes
-    if (variantesActualizadas != null && !variantesActualizadas.isEmpty()) {
-      int stockTotal = variantesActualizadas.stream()
-              .mapToInt(v -> v.getStock() != null ? v.getStock() : 0)
-              .sum();
-      productoExistente.setStock(stockTotal);
-      log.info("Stock total actualizado desde variantes: {}", stockTotal);
-    } else {
-      productoExistente.setStock(productoActualizado.getStock());
-    }
-
-    productoExistente.setMinStock(productoActualizado.getMinStock());
+    // Ya no se actualiza stock general ni minStock desde aquí, se maneja en Inventario
     productoExistente.setSizes(productoActualizado.getSizes());
     productoExistente.setColors(productoActualizado.getColors());
     productoExistente.setImage(productoActualizado.getImage());
@@ -81,7 +70,7 @@ public class ActualizarProductoUseCase {
       for (Variante variante : variantesActualizadas) {
         variante.setProductId(id);
         varianteRepository.save(variante);
-        log.info("Variante guardada/actualizada (Talla: {}, Color: {}, Stock: {})", variante.getSize(), variante.getColor(), variante.getStock());
+        log.info("Variante guardada/actualizada (Talla: {}, Color: {})", variante.getSize(), variante.getColor());
       }
     }
 

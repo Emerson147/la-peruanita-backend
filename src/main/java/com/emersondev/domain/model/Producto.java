@@ -22,12 +22,11 @@ public class Producto {
   private String brand;
   private BigDecimal price;
   private BigDecimal cost;
-  private Integer stock;
-  private Integer minStock;
   private List<String> sizes;
   private List<String> colors;
   private String image;
   private String barcode;
+  private String codigoInterno;
   private String status;
   private Long version;
   private LocalDateTime createdAt;
@@ -35,8 +34,11 @@ public class Producto {
   private List<Variante> variantes;
 
   // Reglas de negocio del dominio
-  public boolean tieneStockBajo() {
-    return this.stock <= this.minStock;
+  public Integer getStockTotal() {
+    if (this.variantes == null) return 0;
+    return this.variantes.stream()
+            .mapToInt(Variante::getStockTotal)
+            .sum();
   }
 
   public boolean estaActivo() {
@@ -45,12 +47,5 @@ public class Producto {
 
   public BigDecimal calcularGanancia() {
     return this.price.subtract(this.cost);
-  }
-
-  public void descontarStock(int cantidad) {
-    if (this.stock < cantidad) {
-      throw new RuntimeException("Stock insuficiente para: " + this.name);
-    }
-    this.stock -= cantidad;
   }
 }

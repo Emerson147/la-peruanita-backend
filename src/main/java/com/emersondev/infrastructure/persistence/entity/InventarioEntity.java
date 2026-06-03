@@ -13,26 +13,25 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "variantes")
-public class VarianteEntity {
+@Table(name = "inventarios")
+public class InventarioEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "product_id", nullable = false)
-  private UUID productId;
+  @Column(name = "variante_id", nullable = false)
+  private UUID varianteId;
 
-  @Column(name = "size", nullable = false)
-  private String size;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "almacen_id", nullable = false)
+  private AlmacenEntity almacen;
 
-  @Column(name = "color")
-  private String color;
+  @Column(name = "stock", nullable = false)
+  private Integer stock = 0;
 
-
-
-  @Column(name = "barcode")
-  private String barcode;
+  @Column(name = "min_stock", nullable = false)
+  private Integer minStock = 5;
 
   @Version
   @Column(name = "version")

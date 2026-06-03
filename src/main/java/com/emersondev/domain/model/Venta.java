@@ -21,6 +21,7 @@ public class Venta {
   private UUID userId;
   private UUID vendedorId;
   private UUID customerId;
+  private UUID almacenId;
   private List<VentaItem> items;
   private BigDecimal subtotal;
   private BigDecimal discount;

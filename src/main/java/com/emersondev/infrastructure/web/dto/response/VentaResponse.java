@@ -19,6 +19,7 @@ public class VentaResponse {
   private UUID userId;
   private UUID vendedorId;
   private UUID customerId;
+  private UUID almacenId;
   private List<VentaItemResponse> items;
   private BigDecimal subtotal;
   private BigDecimal discount;

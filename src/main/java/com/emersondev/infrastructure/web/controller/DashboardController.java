@@ -3,13 +3,12 @@ package com.emersondev.infrastructure.web.controller;
 import com.emersondev.application.usecase.dashboard.ObtenerDashboardUseCase;
 import com.emersondev.domain.model.Dashboard;
 import com.emersondev.infrastructure.web.dto.response.DashboardResponse;
-import com.emersondev.infrastructure.web.dto.response.DashboardResponse.TopProductoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -123,8 +122,8 @@ public class DashboardController {
                                 .StockBajoResponse();
                         sb.setNombre(p.getName());
                         sb.setCategoria(p.getCategoria());
-                        sb.setStock(p.getStock());
-                        sb.setMinStock(p.getMinStock());
+                        sb.setStock(p.getStockTotal());
+                        sb.setMinStock(0);
                         return sb;
                       }).toList());
     }

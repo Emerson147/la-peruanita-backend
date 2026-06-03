@@ -1,6 +1,6 @@
 package com.emersondev.infrastructure.web.dto.request;
 
-import jakarta.validation.constraints.Min;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -20,6 +20,9 @@ public class MovimientoRequest {
   private UUID productId;
 
   private UUID varianteId;
+
+  private UUID almacenOrigenId;
+  private UUID almacenDestinoId;
 
   @NotNull(message = "La cantidad es obligatoria")
   private Integer quantity;

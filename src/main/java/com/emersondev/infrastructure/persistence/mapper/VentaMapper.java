@@ -21,6 +21,7 @@ public class VentaMapper {
     entity.setUserId(venta.getUserId());
     entity.setVendedorId(venta.getVendedorId());
     entity.setCustomerId(venta.getCustomerId());
+    entity.setAlmacenId(venta.getAlmacenId());
     entity.setSubtotal(venta.getSubtotal());
     entity.setDiscount(venta.getDiscount());
     entity.setTax(venta.getTax());
@@ -53,6 +54,7 @@ public class VentaMapper {
     venta.setUserId(entity.getUserId());
     venta.setVendedorId(entity.getVendedorId());
     venta.setCustomerId(entity.getCustomerId());
+    venta.setAlmacenId(entity.getAlmacenId());
     venta.setSubtotal(entity.getSubtotal());
     venta.setDiscount(entity.getDiscount());
     venta.setTax(entity.getTax());

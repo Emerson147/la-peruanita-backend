@@ -22,6 +22,9 @@ public class VentaRequest {
   private UUID vendedorId;
   private UUID customerId;
 
+  @NotNull(message = "El almacén es obligatorio")
+  private UUID almacenId;
+
   @NotEmpty(message = "La venta debe tener al menos un item")
   @Valid
   private List<VentaItemRequest> items;

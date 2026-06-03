@@ -39,11 +39,7 @@ public class ProductoEntity {
   @Column(name = "cost", precision = 10, scale = 2)
   private BigDecimal cost;
 
-  @Column(name = "stock")
-  private Integer stock;
 
-  @Column(name = "min_stock")
-  private Integer minStock;
 
   @Column(name = "sizes", columnDefinition = "TEXT[]")
   private List<String> sizes;
@@ -56,6 +52,11 @@ public class ProductoEntity {
 
   @Column(name = "barcode")
   private String barcode;
+
+  @Column(name = "codigo_interno")
+  private String codigoInterno;
+
+
 
   @Column(name = "status")
   private String status;

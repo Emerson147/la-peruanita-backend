@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class EstrategiaLento implements EstrategiaLiquidacion {
 
   @Override
-  public boolean aplica(Integer feriasSinVender) {
-    return feriasSinVender >= 4 && feriasSinVender <= 8;
+  public boolean aplica(Integer diasSinVender) {
+    return diasSinVender >= 30 && diasSinVender <= 60; // 30-60 días = lento
   }
 
   @Override

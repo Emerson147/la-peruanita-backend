@@ -20,8 +20,6 @@ public class ProductoDtoMapper {
     producto.setBrand(request.getBrand());
     producto.setPrice(request.getPrice());
     producto.setCost(request.getCost());
-    producto.setStock(request.getStock());
-    producto.setMinStock(request.getMinStock());
     producto.setSizes(request.getSizes());
     producto.setColors(request.getColors());
     producto.setImage(request.getImage());
@@ -46,8 +44,6 @@ public class ProductoDtoMapper {
     response.setBrand(producto.getBrand());
     response.setPrice(producto.getPrice());
     response.setCost(producto.getCost());
-    response.setStock(producto.getStock());
-    response.setMinStock(producto.getMinStock());
     response.setSizes(producto.getSizes());
     response.setColors(producto.getColors());
     response.setImage(producto.getImage());
@@ -55,7 +51,6 @@ public class ProductoDtoMapper {
     response.setStatus(producto.getStatus());
     response.setCreatedAt(producto.getCreatedAt());
     response.setUpdatedAt(producto.getUpdatedAt());
-    response.setStockBajo(producto.tieneStockBajo());
     response.setGanancia(producto.calcularGanancia());
 
     if (producto.getVariantes() != null) {
@@ -73,7 +68,7 @@ public class ProductoDtoMapper {
     response.setProductId(variante.getProductId());
     response.setSize(variante.getSize());
     response.setColor(variante.getColor());
-    response.setStock(variante.getStock());
+    response.setStock(variante.getStockTotal());
     response.setBarcode(variante.getBarcode());
     response.setTieneStock(variante.tieneStock());
     return response;
@@ -83,8 +78,7 @@ public class ProductoDtoMapper {
     Variante variante = new Variante();
     variante.setSize(request.getSize());
     variante.setColor(request.getColor());
-    variante.setStock(request.getStock() != null
-            ? request.getStock() : 0);
+
     variante.setBarcode(request.getBarcode());
     return variante;
   }

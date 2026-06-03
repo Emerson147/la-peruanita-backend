@@ -18,12 +18,13 @@ public class ProductoMapper {
     entity.setBrand(producto.getBrand());
     entity.setPrice(producto.getPrice());
     entity.setCost(producto.getCost());
-    entity.setStock(producto.getStock());
-    entity.setMinStock(producto.getMinStock());
+
     entity.setSizes(producto.getSizes());
     entity.setColors(producto.getColors());
     entity.setImage(producto.getImage());
     entity.setBarcode(producto.getBarcode());
+    entity.setCodigoInterno(producto.getCodigoInterno());
+
     entity.setStatus(producto.getStatus());
     entity.setVersion(producto.getVersion() != null ? producto.getVersion() : 0L);
     entity.setCreatedAt(producto.getCreatedAt());
@@ -43,12 +44,13 @@ public class ProductoMapper {
     producto.setBrand(entity.getBrand());
     producto.setPrice(entity.getPrice());
     producto.setCost(entity.getCost());
-    producto.setStock(entity.getStock());
-    producto.setMinStock(entity.getMinStock());
+
     producto.setSizes(entity.getSizes());
     producto.setColors(entity.getColors());
     producto.setImage(entity.getImage());
     producto.setBarcode(entity.getBarcode());
+    producto.setCodigoInterno(entity.getCodigoInterno());
+
     producto.setStatus(entity.getStatus());
     producto.setVersion(entity.getVersion() != null ? entity.getVersion() : 0L);
     producto.setCreatedAt(entity.getCreatedAt());

@@ -20,7 +20,7 @@ public interface ProductoJpaRepository extends JpaRepository<ProductoEntity, UUI
   List<ProductoEntity> findByStatus(String status);
 
   // Buscar productos con stock bajo
-  @Query("SELECT p FROM ProductoEntity p WHERE p.stock <= p.minStock AND p.status = 'active'" )
+  @Query("SELECT p FROM ProductoEntity p WHERE p.status = 'active' AND p.id IN (SELECT v.productId FROM VarianteEntity v WHERE v.id IN (SELECT i.varianteId FROM InventarioEntity i WHERE i.stock <= i.minStock))")
   List<ProductoEntity> findProductosConStockBajo();
 
   //Paginados

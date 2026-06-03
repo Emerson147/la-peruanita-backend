@@ -547,7 +547,7 @@ public class ObtenerReporteUseCase {
       if (v.getCreatedAt() != null) {
         String dia = v.getCreatedAt().getDayOfWeek()
                 .getDisplayName(TextStyle.FULL,
-                        new Locale("es", "PE"));
+                        Locale.forLanguageTag("es-PE"));
         String diaCapitalizado = dia.substring(0, 1)
                 .toUpperCase() + dia.substring(1);
         resultado.merge(diaCapitalizado,

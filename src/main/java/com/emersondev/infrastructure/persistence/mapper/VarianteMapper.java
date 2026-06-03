@@ -15,7 +15,7 @@ public class VarianteMapper {
     entity.setProductId(variante.getProductId());
     entity.setSize(variante.getSize());
     entity.setColor(variante.getColor());
-    entity.setStock(variante.getStock());
+
     entity.setBarcode(variante.getBarcode());
     entity.setVersion(variante.getVersion() != null ? variante.getVersion() : 0L);
 
@@ -30,7 +30,7 @@ public class VarianteMapper {
     variante.setProductId(entity.getProductId());
     variante.setSize(entity.getSize());
     variante.setColor(entity.getColor());
-    variante.setStock(entity.getStock());
+
     variante.setBarcode(entity.getBarcode());
     variante.setVersion(entity.getVersion() != null ? entity.getVersion() : 0L);
 

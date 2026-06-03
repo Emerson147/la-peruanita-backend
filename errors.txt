@@ -1,0 +1,228 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.emersondev:la-peruanita >---------------------
+[INFO] Building la.peruanita 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ la-peruanita ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ la-peruanita ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 152 source files with javac [debug parameters release 21] to target/classes
+[INFO] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/dashboard/ObtenerDashboardUseCase.java: Some input files use or override a deprecated API.
+[INFO] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/dashboard/ObtenerDashboardUseCase.java: Recompile with -Xlint:deprecation for details.
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/dashboard/ObtenerDashboardUseCase.java:[209,41] cannot find symbol
+  symbol:   method getStock()
+  location: variable p of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/dashboard/ObtenerDashboardUseCase.java:[210,38] incompatible types: invalid method reference
+    no suitable method found for add(java.lang.Object,java.lang.Object)
+        method java.math.BigDecimal.add(java.math.BigDecimal,java.math.MathContext) is not applicable
+          (argument mismatch; java.lang.Object cannot be converted to java.math.BigDecimal)
+        method java.math.BigDecimal.add(long,long) is not applicable
+          (argument mismatch; java.lang.Object cannot be converted to long)
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[48,32] cannot find symbol
+  symbol:   method getStock()
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[57,15] cannot find symbol
+  symbol:   method setStock(int)
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[66,32] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[75,15] cannot find symbol
+  symbol:   method setStock(int)
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[44,31] cannot find symbol
+  symbol:   method getStock()
+  location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[44,54] cannot find symbol
+  symbol:   method getStock()
+  location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[46,24] cannot find symbol
+  symbol:   method setStock(int)
+  location: variable productoExistente of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[49,53] cannot find symbol
+  symbol:   method getStock()
+  location: variable productoActualizado of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[52,54] cannot find symbol
+  symbol:   method getMinStock()
+  location: variable productoActualizado of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[84,134] cannot find symbol
+  symbol:   method getStock()
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[32,17] cannot find symbol
+  symbol:   method getMinStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[33,15] cannot find symbol
+  symbol:   method setMinStock(int)
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[42,31] cannot find symbol
+  symbol:   method getStock()
+  location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[42,54] cannot find symbol
+  symbol:   method getStock()
+  location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[44,15] cannot find symbol
+  symbol:   method setStock(int)
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[63,25] cannot find symbol
+  symbol:   method getStock()
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/CancelarVentaUseCase.java:[44,33] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[104,21] cannot find symbol
+  symbol:   method getStock()
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[117,21] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[140,37] cannot find symbol
+  symbol:   method getStock()
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[141,17] cannot find symbol
+  symbol:   method descontarStock(java.lang.Integer)
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[149,45] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[150,17] cannot find symbol
+  symbol:   method descontarStock(java.lang.Integer)
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[155,40] cannot find symbol
+  symbol:   method getStock()
+  location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[157,68] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[166,37] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[167,17] cannot find symbol
+  symbol:   method descontarStock(java.lang.Integer)
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[171,60] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/domain/model/LiquidacionProducto.java:[31,29] cannot find symbol
+  symbol:   method getStock()
+  location: variable producto of type com.emersondev.domain.model.Producto
+[INFO] 31 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.209 s
+[INFO] Finished at: 2026-06-02T22:37:15-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project la-peruanita: Compilation failure: Compilation failure: 
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/dashboard/ObtenerDashboardUseCase.java:[209,41] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable p of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/dashboard/ObtenerDashboardUseCase.java:[210,38] incompatible types: invalid method reference
+[ERROR]     no suitable method found for add(java.lang.Object,java.lang.Object)
+[ERROR]         method java.math.BigDecimal.add(java.math.BigDecimal,java.math.MathContext) is not applicable
+[ERROR]           (argument mismatch; java.lang.Object cannot be converted to java.math.BigDecimal)
+[ERROR]         method java.math.BigDecimal.add(long,long) is not applicable
+[ERROR]           (argument mismatch; java.lang.Object cannot be converted to long)
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[48,32] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[57,15] cannot find symbol
+[ERROR]   symbol:   method setStock(int)
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[66,32] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/movimiento/RegistrarMovimientoUseCase.java:[75,15] cannot find symbol
+[ERROR]   symbol:   method setStock(int)
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[44,31] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[44,54] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[46,24] cannot find symbol
+[ERROR]   symbol:   method setStock(int)
+[ERROR]   location: variable productoExistente of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[49,53] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable productoActualizado of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[52,54] cannot find symbol
+[ERROR]   symbol:   method getMinStock()
+[ERROR]   location: variable productoActualizado of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/ActualizarProductoUseCase.java:[84,134] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[32,17] cannot find symbol
+[ERROR]   symbol:   method getMinStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[33,15] cannot find symbol
+[ERROR]   symbol:   method setMinStock(int)
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[42,31] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[42,54] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable v of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[44,15] cannot find symbol
+[ERROR]   symbol:   method setStock(int)
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/producto/CrearProductoUseCase.java:[63,25] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/CancelarVentaUseCase.java:[44,33] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[104,21] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[117,21] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[140,37] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[141,17] cannot find symbol
+[ERROR]   symbol:   method descontarStock(java.lang.Integer)
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[149,45] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[150,17] cannot find symbol
+[ERROR]   symbol:   method descontarStock(java.lang.Integer)
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[155,40] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable variante of type com.emersondev.domain.model.Variante
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[157,68] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[166,37] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[167,17] cannot find symbol
+[ERROR]   symbol:   method descontarStock(java.lang.Integer)
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/application/usecase/venta/RegistrarVentaUseCase.java:[171,60] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] /home/miggattedev/Documentos/back-end/la-peruanita/peruanita-backend/src/main/java/com/emersondev/domain/model/LiquidacionProducto.java:[31,29] cannot find symbol
+[ERROR]   symbol:   method getStock()
+[ERROR]   location: variable producto of type com.emersondev.domain.model.Producto
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

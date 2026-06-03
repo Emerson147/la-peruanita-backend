@@ -10,7 +10,8 @@ import com.emersondev.domain.repository.ProductoRepository;
 import com.emersondev.domain.repository.VarianteRepository;
 import com.emersondev.domain.repository.VentaRepository;
 import com.emersondev.domain.repository.ClienteRepository;
-import com.emersondev.domain.model.Cliente;
+import com.emersondev.domain.repository.InventarioRepository;
+import java.util.UUID;
 import com.emersondev.domain.service.GamificationDomainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class RegistrarVentaUseCase {
   private final ProductoRepository productoRepository;
   private final VarianteRepository varianteRepository;
   private final ClienteRepository clienteRepository;
+  private final InventarioRepository inventarioRepository;
   private final GamificationDomainService gamificationDomainService;
 
   @Transactional
@@ -79,8 +81,8 @@ public class RegistrarVentaUseCase {
       }
     }
 
-    // PASO 6 — Descontar stock de cada producto
-    descontarStock(itemsProcesados);
+    // PASO 6 — Descontar stock de cada producto en el almacén
+    descontarStock(itemsProcesados, venta.getAlmacenId());
 
     return ventaGuardada;
   }
@@ -94,30 +96,18 @@ public class RegistrarVentaUseCase {
               .orElseThrow(() -> new ProductoNotFoundException(
                       item.getProductId().toString()));
 
-      // Si tiene varianteId — verificar stock de la variante
-      if (item.getVarianteId() != null) {
-        Variante variante = varianteRepository
-                .findById(item.getVarianteId())
-                .orElseThrow(() -> new RuntimeException(
-                        "Variante no encontrada: " + item.getVarianteId()));
-
-        if (variante.getStock() < item.getQuantity()) {
-          log.error("Stock insuficiente variante {}-{}",
-                  variante.getSize(), variante.getColor());
-          throw new StockInsuficienteException(
-                  producto.getName() + " talla " +
-                          variante.getSize() + " color " + variante.getColor());
-        }
-
-        item.setSize(variante.getSize());
-        item.setColor(variante.getColor());
-
-      } else {
-        // Sin variante — verificar stock general del producto
-        if (producto.getStock() < item.getQuantity()) {
-          throw new StockInsuficienteException(producto.getName());
-        }
+      // Si no tiene variante, el sistema multi-almacén asume que el stock recae en una variante genérica
+      if (item.getVarianteId() == null) {
+          throw new IllegalArgumentException("La venta multi-almacén requiere especificar la Variante del producto.");
       }
+
+      Variante variante = varianteRepository
+              .findById(item.getVarianteId())
+              .orElseThrow(() -> new RuntimeException(
+                      "Variante no encontrada: " + item.getVarianteId()));
+
+      item.setSize(variante.getSize());
+      item.setColor(variante.getColor());
 
       item.setProductName(producto.getName());
       item.setUnitPrice(producto.getPrice());
@@ -127,49 +117,19 @@ public class RegistrarVentaUseCase {
     }).toList();
   }
 
-  private void descontarStock(List<VentaItem> items) {
+  private void descontarStock(List<VentaItem> items, UUID almacenId) {
+    if (almacenId == null) {
+        throw new IllegalArgumentException("El Almacén es obligatorio para descontar el stock");
+    }
+
     items.forEach(item -> {
+      com.emersondev.domain.model.Inventario inv = inventarioRepository
+          .findByVarianteIdAndAlmacenId(item.getVarianteId(), almacenId)
+          .orElseThrow(() -> new StockInsuficienteException("No hay registro de inventario para la variante en este almacén."));
 
-      // Si tiene variante — descontar de la variante específica
-      if (item.getVarianteId() != null) {
-        Variante variante = varianteRepository
-                .findById(item.getVarianteId())
-                .orElseThrow(() -> new RuntimeException(
-                        "Variante no encontrada al descontar stock"));
-
-        int stockAnterior = variante.getStock();
-        variante.descontarStock(item.getQuantity());
-        varianteRepository.save(variante);
-
-        // Descontar también del stock general del producto
-        Producto producto = productoRepository
-                .findById(item.getProductId())
-                .orElseThrow(() -> new ProductoNotFoundException(
-                        item.getProductId().toString()));
-        int stockProductoAnterior = producto.getStock();
-        producto.descontarStock(item.getQuantity());
-        productoRepository.save(producto);
-
-        log.info("Stock variante actualizado - {}/{} | Antes: {} | Después: {}",
-                variante.getSize(), variante.getColor(),
-                stockAnterior, variante.getStock());
-        log.info("Stock general del producto actualizado - {} | Antes: {} | Después: {}",
-                producto.getName(), stockProductoAnterior, producto.getStock());
-
-      } else {
-        // Sin variante — descontar del producto general
-        Producto producto = productoRepository
-                .findById(item.getProductId())
-                .orElseThrow(() -> new ProductoNotFoundException(
-                        item.getProductId().toString()));
-
-        int stockAnterior = producto.getStock();
-        producto.descontarStock(item.getQuantity());
-        productoRepository.save(producto);
-
-        log.info("Stock producto actualizado - {} | Antes: {} | Después: {}",
-                producto.getName(), stockAnterior, producto.getStock());
-      }
+      inv.descontarStock(item.getQuantity());
+      inventarioRepository.save(inv);
+      log.info("Stock descontado del inventario - Variante: {}, Almacén: {}, Cantidad: {}", item.getVarianteId(), almacenId, item.getQuantity());
     });
   }
 

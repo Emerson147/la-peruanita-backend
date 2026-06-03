@@ -28,7 +28,7 @@ public class LiquidacionProducto {
   public void calcularPrecios() {
     BigDecimal precio = producto.getPrice();
     BigDecimal costo = producto.getCost();
-    Integer stock = producto.getStock();
+    Integer stock = producto.getStockTotal();
 
     this.precioConDescuento20 = calcularPrecioConDescuento(precio, 0.20);
     this.precioConDescuento30 = calcularPrecioConDescuento(precio, 0.30);

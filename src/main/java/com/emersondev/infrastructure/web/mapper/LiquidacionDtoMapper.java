@@ -15,7 +15,7 @@ public class LiquidacionDtoMapper {
     response.setProductoId(liq.getProducto().getId());
     response.setNombre(liq.getProducto().getName());
     response.setCategoria(liq.getProducto().getCategoria());
-    response.setStock(liq.getProducto().getStock());
+    response.setStock(liq.getProducto().getStockTotal());
     response.setCosto(liq.getProducto().getCost());
     response.setPrecioActual(liq.getProducto().getPrice());
     response.setDiasSinVender(liq.getDiasSinVender());

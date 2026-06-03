@@ -16,6 +16,8 @@ public class MovimientoMapper {
     entity.setType(m.getType());
     entity.setProductId(m.getProductId());
     entity.setVarianteId(m.getVarianteId());
+    entity.setAlmacenOrigenId(m.getAlmacenOrigenId());
+    entity.setAlmacenDestinoId(m.getAlmacenDestinoId());
     entity.setProductName(m.getProductName());
     entity.setQuantity(m.getQuantity());
     entity.setQuantityBefore(m.getQuantityBefore());
@@ -41,6 +43,8 @@ public class MovimientoMapper {
     m.setType(entity.getType());
     m.setProductId(entity.getProductId());
     m.setVarianteId(entity.getVarianteId());
+    m.setAlmacenOrigenId(entity.getAlmacenOrigenId());
+    m.setAlmacenDestinoId(entity.getAlmacenDestinoId());
     m.setProductName(entity.getProductName());
     m.setQuantity(entity.getQuantity());
     m.setQuantityBefore(entity.getQuantityBefore());

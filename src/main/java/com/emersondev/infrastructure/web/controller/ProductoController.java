@@ -4,10 +4,7 @@ import com.emersondev.application.usecase.producto.ActualizarProductoUseCase;
 import com.emersondev.application.usecase.producto.CrearProductoUseCase;
 import com.emersondev.application.usecase.producto.EliminarProductoUseCase;
 import com.emersondev.application.usecase.producto.ObtenerProductosUseCase;
-import com.emersondev.domain.exception.ProductoNotFoundException;
 import com.emersondev.domain.model.Producto;
-import com.emersondev.domain.model.Variante;
-import com.emersondev.domain.repository.VarianteRepository;
 import com.emersondev.infrastructure.web.dto.request.ProductoRequest;
 import com.emersondev.infrastructure.web.dto.response.ProductoResponse;
 import com.emersondev.infrastructure.web.dto.response.VarianteResponse;
@@ -34,7 +31,6 @@ public class ProductoController {
   private final ObtenerProductosUseCase obtenerProductosUseCase;
   private final ActualizarProductoUseCase actualizarProductoUseCase;
   private final EliminarProductoUseCase eliminarProductoUseCase;
-  private final VarianteRepository varianteRepository;
   private final ProductoDtoMapper mapper;
 
   // POST /api/productos
