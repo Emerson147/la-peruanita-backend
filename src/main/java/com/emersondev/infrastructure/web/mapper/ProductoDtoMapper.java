@@ -78,8 +78,16 @@ public class ProductoDtoMapper {
     Variante variante = new Variante();
     variante.setSize(request.getSize());
     variante.setColor(request.getColor());
-
     variante.setBarcode(request.getBarcode());
+
+    if (request.getStock() != null) {
+      com.emersondev.domain.model.Inventario inv = new com.emersondev.domain.model.Inventario();
+      inv.setStock(request.getStock());
+      inv.setMinStock(5);
+      inv.setAlmacenId(request.getAlmacenId());
+      inv.setNombreAlmacen(request.getNombreAlmacen());
+      variante.setInventarios(java.util.List.of(inv));
+    }
     return variante;
   }
 }

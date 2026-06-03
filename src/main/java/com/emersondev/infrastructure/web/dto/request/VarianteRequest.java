@@ -22,4 +22,8 @@ public class VarianteRequest {
   private Integer stock;
 
   private String barcode;
+
+  private java.util.UUID almacenId;
+
+  private String nombreAlmacen;
 }

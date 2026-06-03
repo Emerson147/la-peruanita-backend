@@ -12,9 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Almacen {
-
   private UUID id;
   private String nombre;
   private String direccion;
-  private boolean activo;
+  private boolean activo = true;
 }

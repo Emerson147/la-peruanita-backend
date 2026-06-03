@@ -17,15 +17,23 @@ public class VarianteRepositoryAdapter implements VarianteRepository {
 
   private final VarianteJpaRepository jpaRepository;
   private final VarianteMapper mapper;
+  private final com.emersondev.domain.repository.InventarioRepository inventarioRepository;
+
+  private Variante populateInventarios(Variante domain) {
+    if (domain == null) return null;
+    domain.setInventarios(inventarioRepository.findByVarianteId(domain.getId()));
+    return domain;
+  }
 
   @Override
   public Variante save(Variante variante) {
-    return mapper.toDomain(jpaRepository.save(mapper.toEntity(variante)));
+    Variante saved = mapper.toDomain(jpaRepository.save(mapper.toEntity(variante)));
+    return populateInventarios(saved);
   }
 
   @Override
   public Optional<Variante> findById(UUID id) {
-    return jpaRepository.findById(id).map(mapper::toDomain);
+    return jpaRepository.findById(id).map(mapper::toDomain).map(this::populateInventarios);
   }
 
   @Override
@@ -33,6 +41,7 @@ public class VarianteRepositoryAdapter implements VarianteRepository {
     return jpaRepository.findByProductId(productId)
             .stream()
             .map(mapper::toDomain)
+            .map(this::populateInventarios)
             .toList();
   }
 

@@ -21,6 +21,8 @@ public class ActualizarProductoUseCase {
 
   private final ProductoRepository productoRepository;
   private final VarianteRepository varianteRepository;
+  private final com.emersondev.domain.repository.InventarioRepository inventarioRepository;
+  private final com.emersondev.domain.repository.AlmacenRepository almacenRepository;
 
   @Transactional
   public Producto ejecutar(UUID id, Producto productoActualizado, List<Variante> variantesActualizadas) {
@@ -66,14 +68,60 @@ public class ActualizarProductoUseCase {
         }
       }
 
-      // Guardar o actualizar las variantes enviadas
+      // Guardar o actualizar las variantes enviadas con sus inventarios
       for (Variante variante : variantesActualizadas) {
         variante.setProductId(id);
-        varianteRepository.save(variante);
+        Variante varGuardada = varianteRepository.save(variante);
         log.info("Variante guardada/actualizada (Talla: {}, Color: {})", variante.getSize(), variante.getColor());
+
+        if (variante.getInventarios() != null) {
+          for (com.emersondev.domain.model.Inventario inv : variante.getInventarios()) {
+            inv.setVarianteId(varGuardada.getId());
+            UUID resolvedAlmacenId = resolverAlmacen(inv.getAlmacenId(), inv.getNombreAlmacen());
+            inv.setAlmacenId(resolvedAlmacenId);
+            inventarioRepository.save(inv);
+          }
+        }
       }
     }
 
     return actualizado;
+  }
+
+  private UUID resolverAlmacen(UUID almacenId, String nombreAlmacen) {
+    if (almacenId != null) {
+      return almacenRepository.findById(almacenId)
+              .map(com.emersondev.domain.model.Almacen::getId)
+              .orElseGet(() -> {
+                com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+                nAlmacen.setId(almacenId);
+                nAlmacen.setNombre(nombreAlmacen != null ? nombreAlmacen : "Almacén Central");
+                nAlmacen.setDireccion("Dirección por defecto");
+                nAlmacen.setActivo(true);
+                return almacenRepository.save(nAlmacen).getId();
+              });
+    }
+    
+    if (nombreAlmacen != null && !nombreAlmacen.trim().isEmpty()) {
+      return almacenRepository.findByNombre(nombreAlmacen)
+              .map(com.emersondev.domain.model.Almacen::getId)
+              .orElseGet(() -> {
+                com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+                nAlmacen.setNombre(nombreAlmacen);
+                nAlmacen.setDireccion("Dirección por defecto");
+                nAlmacen.setActivo(true);
+                return almacenRepository.save(nAlmacen).getId();
+              });
+    }
+
+    return almacenRepository.findByNombre("Almacén Central")
+            .map(com.emersondev.domain.model.Almacen::getId)
+            .orElseGet(() -> {
+              com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+              nAlmacen.setNombre("Almacén Central");
+              nAlmacen.setDireccion("Dirección Principal");
+              nAlmacen.setActivo(true);
+              return almacenRepository.save(nAlmacen).getId();
+            });
   }
 }
