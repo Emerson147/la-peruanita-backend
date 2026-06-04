@@ -57,7 +57,7 @@ public class CrearProductoUseCase {
         if (variante.getInventarios() != null) {
           variante.getInventarios().forEach(inv -> {
             inv.setVarianteId(varCreada.getId());
-            UUID resolvedAlmacenId = resolverAlmacen(inv.getAlmacenId(), inv.getNombreAlmacen());
+            UUID resolvedAlmacenId = resolverAlmacen(inv.getAlmacenId());
             inv.setAlmacenId(resolvedAlmacenId);
             inventarioRepository.save(inv);
             log.info("Inventario registrado para almacén: {}, stock: {}", resolvedAlmacenId, inv.getStock());
@@ -69,40 +69,13 @@ public class CrearProductoUseCase {
     return creado;
   }
 
-  private UUID resolverAlmacen(UUID almacenId, String nombreAlmacen) {
-    if (almacenId != null) {
-      return almacenRepository.findById(almacenId)
-              .map(Almacen::getId)
-              .orElseGet(() -> {
-                Almacen nAlmacen = new Almacen();
-                nAlmacen.setId(almacenId);
-                nAlmacen.setNombre(nombreAlmacen != null ? nombreAlmacen : "Almacén Central");
-                nAlmacen.setDireccion("Dirección por defecto");
-                nAlmacen.setActivo(true);
-                return almacenRepository.save(nAlmacen).getId();
-              });
-    }
-    
-    if (nombreAlmacen != null && !nombreAlmacen.trim().isEmpty()) {
-      return almacenRepository.findByNombre(nombreAlmacen)
-              .map(com.emersondev.domain.model.Almacen::getId)
-              .orElseGet(() -> {
-                com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
-                nAlmacen.setNombre(nombreAlmacen);
-                nAlmacen.setDireccion("Dirección por defecto");
-                nAlmacen.setActivo(true);
-                return almacenRepository.save(nAlmacen).getId();
-              });
+  private UUID resolverAlmacen(UUID almacenId) {
+    if (almacenId == null) {
+      throw new IllegalArgumentException("El ID del almacén es obligatorio para registrar un inventario.");
     }
 
-    return almacenRepository.findByNombre("Almacén Central")
-            .map(com.emersondev.domain.model.Almacen::getId)
-            .orElseGet(() -> {
-              com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
-              nAlmacen.setNombre("Almacén Central");
-              nAlmacen.setDireccion("Dirección Principal");
-              nAlmacen.setActivo(true);
-              return almacenRepository.save(nAlmacen).getId();
-            });
+    return almacenRepository.findById(almacenId)
+            .map(Almacen::getId)
+            .orElseThrow(() -> new IllegalArgumentException("El almacén con ID " + almacenId + " no existe. Crealo primero."));
   }
 }
