@@ -91,6 +91,22 @@ public class SecurityConfig {
                             "/api/movimientos/**")
                     .hasAnyRole("ADMIN", "VENDOR")
 
+                    // ADMIN puede gestionar almacenes (CRUD completo)
+                    .requestMatchers(HttpMethod.POST,
+                            "/api/almacenes/**")
+                    .hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT,
+                            "/api/almacenes/**")
+                    .hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,
+                            "/api/almacenes/**")
+                    .hasRole("ADMIN")
+
+                    // ADMIN y VENDOR pueden ver almacenes (necesario para el select de ventas)
+                    .requestMatchers(HttpMethod.GET,
+                            "/api/almacenes/**")
+                    .hasAnyRole("ADMIN", "VENDOR")
+
                     .requestMatchers("/api/gastos/**")
                     .hasRole("ADMIN")
 

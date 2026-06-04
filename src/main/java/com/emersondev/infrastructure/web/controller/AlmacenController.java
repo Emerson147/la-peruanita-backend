@@ -1,4 +1,5 @@
 package com.emersondev.infrastructure.web.controller;
+
 import com.emersondev.application.usecase.almacen.ActualizarAlmacenUseCase;
 import com.emersondev.application.usecase.almacen.CrearAlmacenUseCase;
 import com.emersondev.application.usecase.almacen.EliminarAlmacenUseCase;
@@ -14,14 +15,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/almacenes")
 @RequiredArgsConstructor
 public class AlmacenController {
+
   private final CrearAlmacenUseCase crearAlmacenUseCase;
   private final ObtenerAlmacenesUseCase obtenerAlmacenesUseCase;
   private final ActualizarAlmacenUseCase actualizarAlmacenUseCase;
   private final EliminarAlmacenUseCase eliminarAlmacenUseCase;
+
   @PostMapping
   public ResponseEntity<AlmacenResponse> crear(@Valid @RequestBody AlmacenRequest request) {
     Almacen almacen = new Almacen();
@@ -33,6 +37,7 @@ public class AlmacenController {
     Almacen creado = crearAlmacenUseCase.ejecutar(almacen);
     return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(creado));
   }
+
   @GetMapping
   public ResponseEntity<List<AlmacenResponse>> listar() {
     List<AlmacenResponse> response = obtenerAlmacenesUseCase.obtenerTodos().stream()
@@ -40,11 +45,13 @@ public class AlmacenController {
             .collect(Collectors.toList());
     return ResponseEntity.ok(response);
   }
+
   @GetMapping("/{id}")
   public ResponseEntity<AlmacenResponse> obtenerPorId(@PathVariable UUID id) {
     Almacen almacen = obtenerAlmacenesUseCase.obtenerPorId(id);
     return ResponseEntity.ok(toResponse(almacen));
   }
+
   @PutMapping("/{id}")
   public ResponseEntity<AlmacenResponse> actualizar(@PathVariable UUID id, @Valid @RequestBody AlmacenRequest request) {
     Almacen almacenActualizado = new Almacen();
@@ -58,6 +65,7 @@ public class AlmacenController {
     Almacen guardado = actualizarAlmacenUseCase.ejecutar(id, almacenActualizado);
     return ResponseEntity.ok(toResponse(guardado));
   }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> eliminar(@PathVariable UUID id) {
     eliminarAlmacenUseCase.ejecutar(id);

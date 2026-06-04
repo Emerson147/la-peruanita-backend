@@ -9,7 +9,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ActualizarAlmacenUseCase {
+
   private final AlmacenRepository almacenRepository;
+
   public Almacen ejecutar(UUID id, Almacen almacenActualizado) {
     Almacen almacenExistente = almacenRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Almacen no encontrado"));

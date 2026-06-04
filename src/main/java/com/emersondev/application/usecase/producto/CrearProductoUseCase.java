@@ -1,5 +1,6 @@
 package com.emersondev.application.usecase.producto;
 
+import com.emersondev.domain.model.Almacen;
 import com.emersondev.domain.model.Producto;
 import com.emersondev.domain.model.Variante;
 import com.emersondev.domain.repository.ProductoRepository;
@@ -71,9 +72,9 @@ public class CrearProductoUseCase {
   private UUID resolverAlmacen(UUID almacenId, String nombreAlmacen) {
     if (almacenId != null) {
       return almacenRepository.findById(almacenId)
-              .map(com.emersondev.domain.model.Almacen::getId)
+              .map(Almacen::getId)
               .orElseGet(() -> {
-                com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+                Almacen nAlmacen = new Almacen();
                 nAlmacen.setId(almacenId);
                 nAlmacen.setNombre(nombreAlmacen != null ? nombreAlmacen : "Almacén Central");
                 nAlmacen.setDireccion("Dirección por defecto");
