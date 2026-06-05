@@ -40,7 +40,6 @@ public class ProductoEntity {
   private BigDecimal cost;
 
 
-
   @Column(name = "sizes", columnDefinition = "TEXT[]")
   private List<String> sizes;
 
@@ -55,8 +54,6 @@ public class ProductoEntity {
 
   @Column(name = "codigo_interno")
   private String codigoInterno;
-
-
 
   @Column(name = "status")
   private String status;

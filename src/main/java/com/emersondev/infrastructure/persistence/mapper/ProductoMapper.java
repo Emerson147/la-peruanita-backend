@@ -37,25 +37,22 @@ public class ProductoMapper {
   public Producto toDomain(ProductoEntity entity) {
     if (entity == null) return null;
 
-    Producto producto = new Producto();
-    producto.setId(entity.getId());
-    producto.setName(entity.getName());
-    producto.setCategoria(entity.getCategoria());
-    producto.setBrand(entity.getBrand());
-    producto.setPrice(entity.getPrice());
-    producto.setCost(entity.getCost());
-
-    producto.setSizes(entity.getSizes());
-    producto.setColors(entity.getColors());
-    producto.setImage(entity.getImage());
-    producto.setBarcode(entity.getBarcode());
-    producto.setCodigoInterno(entity.getCodigoInterno());
-
-    producto.setStatus(entity.getStatus());
-    producto.setVersion(entity.getVersion() != null ? entity.getVersion() : 0L);
-    producto.setCreatedAt(entity.getCreatedAt());
-    producto.setUpdatedAt(entity.getUpdatedAt());
-
-    return producto;
+    return Producto.builder()
+        .id(entity.getId())
+        .name(entity.getName())
+        .categoria(entity.getCategoria())
+        .brand(entity.getBrand())
+        .price(entity.getPrice())
+        .cost(entity.getCost())
+        .sizes(entity.getSizes())
+        .colors(entity.getColors())
+        .image(entity.getImage())
+        .barcode(entity.getBarcode())
+        .codigoInterno(entity.getCodigoInterno())
+        .status(entity.getStatus())
+        .version(entity.getVersion() != null ? entity.getVersion() : 0L)
+        .createdAt(entity.getCreatedAt())
+        .updatedAt(entity.getUpdatedAt())
+        .build();
   }
 }

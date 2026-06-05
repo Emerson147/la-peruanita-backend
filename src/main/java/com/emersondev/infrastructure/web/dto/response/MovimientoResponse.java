@@ -11,6 +11,8 @@ public class MovimientoResponse {
   private String type;
   private UUID productId;
   private UUID varianteId;
+  private UUID almacenOrigenId;
+  private UUID almacenDestinoId;
   private String productName;
   private Integer quantity;
   private Integer quantityBefore;
@@ -40,6 +42,12 @@ public class MovimientoResponse {
 
   public UUID getVarianteId() { return varianteId; }
   public void setVarianteId(UUID v) { this.varianteId = v; }
+
+  public UUID getAlmacenOrigenId() { return almacenOrigenId; }
+  public void setAlmacenOrigenId(UUID a) { this.almacenOrigenId = a; }
+
+  public UUID getAlmacenDestinoId() { return almacenDestinoId; }
+  public void setAlmacenDestinoId(UUID a) { this.almacenDestinoId = a; }
 
   public String getProductName() { return productName; }
   public void setProductName(String p) { this.productName = p; }

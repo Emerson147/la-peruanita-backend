@@ -63,13 +63,14 @@ class RegistrarVentaUseCaseTest {
     productoId = UUID.randomUUID();
     varianteId = UUID.randomUUID();
 
-    producto = new Producto();
-    producto.setId(productoId);
-    producto.setName("Casaca Cordelina");
-    producto.setCategoria("Casacas");
-    producto.setPrice(new BigDecimal("110.00"));
-    producto.setCost(new BigDecimal("65.00"));
-    producto.setStatus("active");
+    producto = Producto.builder()
+            .id(productoId)
+            .name("Casaca Cordelina")
+            .categoria("Casacas")
+            .price(new BigDecimal("110.00"))
+            .cost(new BigDecimal("65.00"))
+            .status("active")
+            .build();
 
     variante = new Variante();
     variante.setId(varianteId);

@@ -29,6 +29,13 @@ public class Variante {
             .sum();
   }
 
+  public Integer getMinStockTotal() {
+    if (this.inventarios == null) return 0;
+    return this.inventarios.stream()
+            .mapToInt(inv -> inv.getMinStock() != null ? inv.getMinStock() : 0)
+            .sum();
+  }
+
   // Regla de negocio — tiene stock disponible
   public boolean tieneStock() {
     return getStockTotal() > 0;

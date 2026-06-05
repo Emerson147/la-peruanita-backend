@@ -43,10 +43,7 @@ public class ProductoController {
             mapper.toVariantesDomain(request.getVariants()));
 
     return ResponseEntity.status(HttpStatus.CREATED)
-            .body(mapper.toResponse(
-                    obtenerProductosUseCase
-                            .obtenerPorId(creado.getId())
-            ));
+            .body(mapper.toResponse(creado));
   }
 
   // GET /api/productos

@@ -65,11 +65,11 @@ public class RegistrarMovimientoUseCase {
 
     int cantidad = movimiento.getQuantity() != null ? movimiento.getQuantity() : 0;
     
-    if ("entrada".equals(movimiento.getType())) {
+    if ("entrada".equalsIgnoreCase(movimiento.getType())) {
       inv.setStock(inv.getStock() + cantidad);
-    } else if ("ajuste".equals(movimiento.getType())) {
+    } else if ("ajuste".equalsIgnoreCase(movimiento.getType())) {
       inv.setStock(cantidad); // Asumo que ajuste es SET, si es sumar/restar ajustar aquí
-    } else if ("salida".equals(movimiento.getType())) {
+    } else if ("salida".equalsIgnoreCase(movimiento.getType())) {
       inv.descontarStock(cantidad);
     }
 
@@ -97,7 +97,7 @@ public class RegistrarMovimientoUseCase {
 
 
   private String generarNumero(String type) {
-    String prefijo = "entrada".equals(type) ? "ENTR" : "AJUS";
+    String prefijo = "entrada".equalsIgnoreCase(type) ? "ENTR" : "AJUS";
     long count = movimientoRepository.countByType(type);
     return String.format("%s-%04d", prefijo, count + 1);
   }

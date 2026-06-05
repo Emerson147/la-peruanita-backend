@@ -91,6 +91,7 @@ public class VentaDtoMapper {
     VentaItemResponse response = new VentaItemResponse();
     response.setId(item.getId());
     response.setProductId(item.getProductId());
+    response.setVarianteId(item.getVarianteId());
     response.setProductName(item.getProductName());
     response.setQuantity(item.getQuantity());
     response.setSize(item.getSize());

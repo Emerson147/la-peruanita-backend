@@ -14,6 +14,7 @@ public class VentaItemResponse {
 
   private UUID id;
   private UUID productId;
+  private UUID varianteId;
   private String productName;
   private Integer quantity;
   private String size;

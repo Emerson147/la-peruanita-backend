@@ -81,6 +81,8 @@ public class MovimientoController {
     m.setType(request.getType());
     m.setProductId(request.getProductId());
     m.setVarianteId(request.getVarianteId());
+    m.setAlmacenOrigenId(request.getAlmacenOrigenId());
+    m.setAlmacenDestinoId(request.getAlmacenDestinoId());
     m.setQuantity(request.getQuantity());
     m.setReason(request.getReason());
     m.setSupplier(request.getSupplier());
@@ -99,6 +101,8 @@ public class MovimientoController {
     r.setType(m.getType());
     r.setProductId(m.getProductId());
     r.setVarianteId(m.getVarianteId());
+    r.setAlmacenOrigenId(m.getAlmacenOrigenId());
+    r.setAlmacenDestinoId(m.getAlmacenDestinoId());
     r.setProductName(m.getProductName());
     r.setQuantity(m.getQuantity());
     r.setQuantityBefore(m.getQuantityBefore());

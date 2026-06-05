@@ -41,7 +41,7 @@ public class VentaController {
 
     Venta venta = mapper.toDomain(request);
     
-    // 🔥 FORZAR Vendedor ID desde la BD real de Java (previene falsificaciones y conflictos de frontend)
+    // FORZAR Vendedor ID desde la BD real de Java (previene falsificaciones y conflictos de frontend)
     if (userDetails != null) {
         usuarioRepository.findByEmail(userDetails.getUsername())
              .ifPresent(usuario -> venta.setVendedorId(usuario.getId()));

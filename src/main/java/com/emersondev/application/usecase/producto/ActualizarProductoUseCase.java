@@ -34,19 +34,8 @@ public class ActualizarProductoUseCase {
               return new ProductoNotFoundException(id.toString());
             });
 
-    productoExistente.setName(productoActualizado.getName());
-    productoExistente.setCategoria(productoActualizado.getCategoria());
-    productoExistente.setBrand(productoActualizado.getBrand());
-    productoExistente.setPrice(productoActualizado.getPrice());
-    productoExistente.setCost(productoActualizado.getCost());
-    
     // Ya no se actualiza stock general ni minStock desde aquí, se maneja en Inventario
-    productoExistente.setSizes(productoActualizado.getSizes());
-    productoExistente.setColors(productoActualizado.getColors());
-    productoExistente.setImage(productoActualizado.getImage());
-    productoExistente.setBarcode(productoActualizado.getBarcode());
-    productoExistente.setStatus(productoActualizado.getStatus());
-    productoExistente.setUpdatedAt(LocalDateTime.now());
+    productoExistente.actualizarDatos(productoActualizado);
 
     Producto actualizado = productoRepository.save(productoExistente);
     log.info("Producto actualizado exitosamente: {}", actualizado.getName());

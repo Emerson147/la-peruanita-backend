@@ -14,18 +14,18 @@ import java.util.List;
 public class ProductoDtoMapper {
 
   public Producto toDomain(ProductoRequest request) {
-    Producto producto = new Producto();
-    producto.setName(request.getName());
-    producto.setCategoria(request.getCategory());
-    producto.setBrand(request.getBrand());
-    producto.setPrice(request.getPrice());
-    producto.setCost(request.getCost());
-    producto.setSizes(request.getSizes());
-    producto.setColors(request.getColors());
-    producto.setImage(request.getImage());
-    producto.setBarcode(request.getBarcode());
-    producto.setStatus(request.getStatus());
-    return producto;
+    return Producto.builder()
+            .name(request.getName())
+            .categoria(request.getCategory())
+            .brand(request.getBrand())
+            .price(request.getPrice())
+            .cost(request.getCost())
+            .sizes(request.getSizes())
+            .colors(request.getColors())
+            .image(request.getImage())
+            .barcode(request.getBarcode())
+            .status(request.getStatus())
+            .build();
   }
 
   public List<Variante> toVariantesDomain(
@@ -44,6 +44,8 @@ public class ProductoDtoMapper {
     response.setBrand(producto.getBrand());
     response.setPrice(producto.getPrice());
     response.setCost(producto.getCost());
+    response.setStock(producto.getStockTotal());
+    response.setMinStock(producto.getMinStockTotal());
     response.setSizes(producto.getSizes());
     response.setColors(producto.getColors());
     response.setImage(producto.getImage());
@@ -83,7 +85,6 @@ public class ProductoDtoMapper {
     if (request.getStock() != null) {
       com.emersondev.domain.model.Inventario inv = new com.emersondev.domain.model.Inventario();
       inv.setStock(request.getStock());
-      inv.setMinStock(5);
       inv.setAlmacenId(request.getAlmacenId());
       inv.setNombreAlmacen(request.getNombreAlmacen());
       variante.setInventarios(java.util.List.of(inv));

@@ -83,6 +83,7 @@ public class VentaMapper {
     entity.setId(item.getId());
     entity.setVenta(ventaEntity);
     entity.setProductId(item.getProductId());
+    entity.setVarianteId(item.getVarianteId());
     entity.setProductName(item.getProductName());
     entity.setQuantity(item.getQuantity());
     entity.setSize(item.getSize());
@@ -98,6 +99,7 @@ public class VentaMapper {
     item.setId(entity.getId());
     item.setSaleId(entity.getVenta().getId());
     item.setProductId(entity.getProductId());
+    item.setVarianteId(entity.getVarianteId());
     item.setProductName(entity.getProductName());
     item.setQuantity(entity.getQuantity());
     item.setSize(entity.getSize());

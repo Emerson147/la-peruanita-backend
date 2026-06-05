@@ -28,6 +28,9 @@ public class VentaItemEntity {
   @Column(name = "product_id")
   private UUID productId;
 
+  @Column(name = "variante_id")
+  private UUID varianteId;
+
   @Column(name = "product_name", nullable = false)
   private String productName;
 

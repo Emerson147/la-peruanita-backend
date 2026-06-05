@@ -9,12 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ObtenerProductosUseCase {
 
   private final ProductoRepository productoRepository;
@@ -38,7 +40,7 @@ public class ObtenerProductosUseCase {
             .orElseThrow(() ->
                     new ProductoNotFoundException("Producto no encontrado con ID: " + id.toString()));
 
-    producto.setVariantes(varianteRepository.findByProductId(id));
+    producto.asignarVariantes(varianteRepository.findByProductId(id));
     return producto;
   }
 
@@ -71,7 +73,7 @@ public class ObtenerProductosUseCase {
 
   private void cargarVariantes(List<Producto> productos) {
     productos.forEach(p ->
-            p.setVariantes(
+            p.asignarVariantes(
                     varianteRepository.findByProductId(
                             p.getId())));
   }

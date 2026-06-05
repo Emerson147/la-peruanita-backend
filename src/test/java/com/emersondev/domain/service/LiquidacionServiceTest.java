@@ -43,57 +43,54 @@ class LiquidacionServiceTest {
 
   @BeforeEach
   void setUp() {
-    // Producto activo — creado hace 5 días
-    productoActivo = new Producto();
-    productoActivo.setId(UUID.randomUUID());
-    productoActivo.setName("Casaca Nueva");
-    productoActivo.setCategoria("Casacas");
-    productoActivo.setPrice(new BigDecimal("150.00"));
-    productoActivo.setCost(new BigDecimal("90.00"));
-    
     Variante vActivo = new Variante();
     Inventario iActivo = new Inventario();
     iActivo.setStock(5);
     vActivo.setInventarios(List.of(iActivo));
-    productoActivo.setVariantes(List.of(vActivo));
-    
-    productoActivo.setStatus("active");
-    productoActivo.setCreatedAt(
-            LocalDateTime.now().minusDays(5));
 
-    // Producto lento — creado hace 20 días (entre 4 y 8 ferias)
-    productoLento = new Producto();
-    productoLento.setId(UUID.randomUUID());
-    productoLento.setName("Polo Azul");
-    productoLento.setCategoria("Polos");
-    productoLento.setPrice(new BigDecimal("35.00"));
-    productoLento.setCost(new BigDecimal("18.00"));
-    
+    // Producto activo — creado hace 5 días
+    productoActivo = Producto.builder()
+            .id(UUID.randomUUID())
+            .name("Casaca Nueva")
+            .categoria("Casacas")
+            .price(new BigDecimal("150.00"))
+            .cost(new BigDecimal("90.00"))
+            .variantes(List.of(vActivo))
+            .status("active")
+            .createdAt(LocalDateTime.now().minusDays(5))
+            .build();
+
     Variante vLento = new Variante();
     Inventario iLento = new Inventario();
     iLento.setStock(7);
     vLento.setInventarios(List.of(iLento));
-    productoLento.setVariantes(List.of(vLento));
-    
-    productoLento.setStatus("active");
-    productoLento.setCreatedAt(
-            LocalDateTime.now().minusDays(40));
 
-    // 4. Producto congelado (sin mov reciente, pero poco stock,
-    // debería estar en liquidación pero por lógica interna el servicio los lista si es baja rotación)
-    productoCongelado = new Producto();
-    productoCongelado.setId(UUID.randomUUID());
-    productoCongelado.setPrice(new BigDecimal("100.00"));
-    productoCongelado.setCost(new BigDecimal("60.00"));
-    
+    // Producto lento — creado hace 20 días (entre 4 y 8 ferias)
+    productoLento = Producto.builder()
+            .id(UUID.randomUUID())
+            .name("Polo Azul")
+            .categoria("Polos")
+            .price(new BigDecimal("35.00"))
+            .cost(new BigDecimal("18.00"))
+            .variantes(List.of(vLento))
+            .status("active")
+            .createdAt(LocalDateTime.now().minusDays(40))
+            .build();
+
     Variante vCongelado = new Variante();
     com.emersondev.domain.model.Inventario iCongelado = new com.emersondev.domain.model.Inventario();
     iCongelado.setStock(3);
     vCongelado.setInventarios(java.util.List.of(iCongelado));
-    productoCongelado.setVariantes(java.util.List.of(vCongelado));
-    productoCongelado.setStatus("active");
-    productoCongelado.setCreatedAt(
-            LocalDateTime.now().minusDays(70));
+
+    // 4. Producto congelado
+    productoCongelado = Producto.builder()
+            .id(UUID.randomUUID())
+            .price(new BigDecimal("100.00"))
+            .cost(new BigDecimal("60.00"))
+            .variantes(java.util.List.of(vCongelado))
+            .status("active")
+            .createdAt(LocalDateTime.now().minusDays(70))
+            .build();
   }
 
   // =============================================
