@@ -134,8 +134,8 @@ public class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    // Permite tu Angular local y tu posible IP remota
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://tiendas-denraf.vercel.app"));
+    // Permite cualquier origen (frontend) temporalmente para desarrollo/producción
+    configuration.setAllowedOriginPatterns(Arrays.asList("*"));
     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
     configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
 
