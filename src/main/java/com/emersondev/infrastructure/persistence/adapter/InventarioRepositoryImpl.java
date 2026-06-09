@@ -47,6 +47,11 @@ public class InventarioRepositoryImpl implements InventarioRepository {
   }
 
   @Override
+  public void deleteById(UUID id) {
+    jpaRepository.deleteById(id);
+  }
+
+  @Override
   public Optional<Inventario> findById(UUID id) {
     return jpaRepository.findById(id).map(mapper::toDomain);
   }

@@ -1,8 +1,12 @@
 package com.emersondev.application.usecase.producto;
 
 import com.emersondev.domain.exception.ProductoNotFoundException;
+import com.emersondev.domain.model.Almacen;
+import com.emersondev.domain.model.Inventario;
 import com.emersondev.domain.model.Producto;
 import com.emersondev.domain.model.Variante;
+import com.emersondev.domain.repository.AlmacenRepository;
+import com.emersondev.domain.repository.InventarioRepository;
 import com.emersondev.domain.repository.ProductoRepository;
 import com.emersondev.domain.repository.VarianteRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +25,8 @@ public class ActualizarProductoUseCase {
 
   private final ProductoRepository productoRepository;
   private final VarianteRepository varianteRepository;
-  private final com.emersondev.domain.repository.InventarioRepository inventarioRepository;
-  private final com.emersondev.domain.repository.AlmacenRepository almacenRepository;
+  private final InventarioRepository inventarioRepository;
+  private final AlmacenRepository almacenRepository;
 
   @Transactional
   public Producto ejecutar(UUID id, Producto productoActualizado, List<Variante> variantesActualizadas) {
@@ -52,6 +56,12 @@ public class ActualizarProductoUseCase {
       // Eliminar variantes que ya no pertenecen al producto
       for (Variante actual : variantesActuales) {
         if (!idsNuevos.contains(actual.getId())) {
+          List<Inventario> invs = inventarioRepository.findByVarianteId(actual.getId());
+          if (invs != null) {
+            for (Inventario i : invs) {
+              inventarioRepository.deleteById(i.getId());
+            }
+          }
           varianteRepository.deleteById(actual.getId());
           log.info("Variante eliminada: {}", actual.getId());
         }
@@ -64,11 +74,19 @@ public class ActualizarProductoUseCase {
         log.info("Variante guardada/actualizada (Talla: {}, Color: {})", variante.getSize(), variante.getColor());
 
         if (variante.getInventarios() != null) {
-          for (com.emersondev.domain.model.Inventario inv : variante.getInventarios()) {
+          for (Inventario inv : variante.getInventarios()) {
             inv.setVarianteId(varGuardada.getId());
             UUID resolvedAlmacenId = resolverAlmacen(inv.getAlmacenId(), inv.getNombreAlmacen());
             inv.setAlmacenId(resolvedAlmacenId);
-            inventarioRepository.save(inv);
+            
+            inventarioRepository.findByVarianteIdAndAlmacenId(varGuardada.getId(), resolvedAlmacenId)
+                    .ifPresentOrElse(
+                            existente -> {
+                              existente.setStock(inv.getStock());
+                              inventarioRepository.save(existente);
+                            },
+                            () -> inventarioRepository.save(inv)
+                    );
           }
         }
       }
@@ -80,9 +98,9 @@ public class ActualizarProductoUseCase {
   private UUID resolverAlmacen(UUID almacenId, String nombreAlmacen) {
     if (almacenId != null) {
       return almacenRepository.findById(almacenId)
-              .map(com.emersondev.domain.model.Almacen::getId)
+              .map(Almacen::getId)
               .orElseGet(() -> {
-                com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+                Almacen nAlmacen = new Almacen();
                 nAlmacen.setId(almacenId);
                 nAlmacen.setNombre(nombreAlmacen != null ? nombreAlmacen : "Almacén Central");
                 nAlmacen.setDireccion("Dirección por defecto");
@@ -93,9 +111,9 @@ public class ActualizarProductoUseCase {
     
     if (nombreAlmacen != null && !nombreAlmacen.trim().isEmpty()) {
       return almacenRepository.findByNombre(nombreAlmacen)
-              .map(com.emersondev.domain.model.Almacen::getId)
+              .map(Almacen::getId)
               .orElseGet(() -> {
-                com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+                Almacen nAlmacen = new Almacen();
                 nAlmacen.setNombre(nombreAlmacen);
                 nAlmacen.setDireccion("Dirección por defecto");
                 nAlmacen.setActivo(true);
@@ -104,9 +122,9 @@ public class ActualizarProductoUseCase {
     }
 
     return almacenRepository.findByNombre("Almacén Central")
-            .map(com.emersondev.domain.model.Almacen::getId)
+            .map(Almacen::getId)
             .orElseGet(() -> {
-              com.emersondev.domain.model.Almacen nAlmacen = new com.emersondev.domain.model.Almacen();
+              Almacen nAlmacen = new Almacen();
               nAlmacen.setNombre("Almacén Central");
               nAlmacen.setDireccion("Dirección Principal");
               nAlmacen.setActivo(true);

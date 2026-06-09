@@ -10,6 +10,8 @@ public interface InventarioRepository {
 
   Inventario save(Inventario inventario);
   
+  void deleteById(UUID id);
+  
   Optional<Inventario> findById(UUID id);
   
   Optional<Inventario> findByVarianteIdAndAlmacenId(UUID varianteId, UUID almacenId);

@@ -61,8 +61,7 @@ public class RegistrarVentaUseCase {
     if (venta.getVendedorId() != null) {
       try {
         gamificationDomainService.verificarLogros(
-                venta.getVendedorId(), ventaGuardada
-        );
+            venta.getVendedorId(), ventaGuardada);
       } catch (Exception e) {
         log.warn("Error verificando logros: {} ", e.getMessage());
       }
@@ -92,19 +91,20 @@ public class RegistrarVentaUseCase {
 
       // Verificar que el producto existe
       Producto producto = productoRepository
-              .findById(item.getProductId())
-              .orElseThrow(() -> new ProductoNotFoundException(
-                      item.getProductId().toString()));
+          .findById(item.getProductId())
+          .orElseThrow(() -> new ProductoNotFoundException(
+              item.getProductId().toString()));
 
-      // Si no tiene variante, el sistema multi-almacén asume que el stock recae en una variante genérica
+      // Si no tiene variante, el sistema multi-almacén asume que el stock recae en
+      // una variante genérica
       if (item.getVarianteId() == null) {
-          throw new IllegalArgumentException("La venta multi-almacén requiere especificar la Variante del producto.");
+        throw new IllegalArgumentException("La venta multi-almacén requiere especificar la Variante del producto.");
       }
 
       Variante variante = varianteRepository
-              .findById(item.getVarianteId())
-              .orElseThrow(() -> new RuntimeException(
-                      "Variante no encontrada: " + item.getVarianteId()));
+          .findById(item.getVarianteId())
+          .orElseThrow(() -> new RuntimeException(
+              "Variante no encontrada: " + item.getVarianteId()));
 
       item.setSize(variante.getSize());
       item.setColor(variante.getColor());
@@ -119,17 +119,19 @@ public class RegistrarVentaUseCase {
 
   private void descontarStock(List<VentaItem> items, UUID almacenId) {
     if (almacenId == null) {
-        throw new IllegalArgumentException("El Almacén es obligatorio para descontar el stock");
+      throw new IllegalArgumentException("El Almacén es obligatorio para descontar el stock");
     }
 
     items.forEach(item -> {
       com.emersondev.domain.model.Inventario inv = inventarioRepository
           .findByVarianteIdAndAlmacenId(item.getVarianteId(), almacenId)
-          .orElseThrow(() -> new StockInsuficienteException("No hay registro de inventario para la variante en este almacén."));
+          .orElseThrow(
+              () -> new StockInsuficienteException("No hay registro de inventario para la variante en este almacén."));
 
       inv.descontarStock(item.getQuantity());
       inventarioRepository.save(inv);
-      log.info("Stock descontado del inventario - Variante: {}, Almacén: {}, Cantidad: {}", item.getVarianteId(), almacenId, item.getQuantity());
+      log.info("Stock descontado del inventario - Variante: {}, Almacén: {}, Cantidad: {}", item.getVarianteId(),
+          almacenId, item.getQuantity());
     });
   }
 

@@ -7,11 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class VarianteRequest {
+  private UUID id;
 
   @NotBlank(message = "La talla es obligatoria")
   private String size;
@@ -23,7 +26,7 @@ public class VarianteRequest {
 
   private String barcode;
 
-  private java.util.UUID almacenId;
+  private UUID almacenId;
 
-  private String nombreAlmacen;
+  private String almacenName;
 }

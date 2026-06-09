@@ -11,6 +11,8 @@ public class VarianteResponse {
   private Integer stock;
   private String barcode;
   private boolean tieneStock;
+  private UUID almacenId;
+  private String almacenName;
 
   public VarianteResponse() {}
 
@@ -34,4 +36,10 @@ public class VarianteResponse {
 
   public boolean isTieneStock() { return tieneStock; }
   public void setTieneStock(boolean tieneStock) { this.tieneStock = tieneStock; }
+
+  public UUID getAlmacenId() { return almacenId; }
+  public void setAlmacenId(UUID almacenId) { this.almacenId = almacenId; }
+
+  public String getAlmacenName() { return almacenName; }
+  public void setAlmacenName(String almacenName) { this.almacenName = almacenName; }
 }

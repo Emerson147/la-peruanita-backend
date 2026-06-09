@@ -50,7 +50,7 @@ public class CrearProductoUseCase {
               inv.setMinStock(5); // Regla de negocio movida al UseCase
             }
             inv.setVarianteId(varCreada.getId());
-            Almacen almacenReal = resolverAlmacen(inv.getAlmacenId());
+            Almacen almacenReal = resolverAlmacen(inv.getAlmacenId(), inv.getNombreAlmacen());
             inv.setAlmacenId(almacenReal.getId());
             inv.setNombreAlmacen(almacenReal.getNombre());
             Inventario invCreado = inventarioRepository.save(inv);
@@ -67,12 +67,37 @@ public class CrearProductoUseCase {
     return creado;
   }
 
-  private Almacen resolverAlmacen(UUID almacenId) {
-    if (almacenId == null) {
-      throw new IllegalArgumentException("El ID del almacén es obligatorio para registrar un inventario.");
+  private Almacen resolverAlmacen(UUID almacenId, String nombreAlmacen) {
+    if (almacenId != null) {
+      return almacenRepository.findById(almacenId)
+              .orElseGet(() -> {
+                Almacen nAlmacen = new Almacen();
+                nAlmacen.setId(almacenId);
+                nAlmacen.setNombre(nombreAlmacen != null ? nombreAlmacen : "Almacén Central");
+                nAlmacen.setDireccion("Dirección por defecto");
+                nAlmacen.setActivo(true);
+                return almacenRepository.save(nAlmacen);
+              });
     }
 
-    return almacenRepository.findById(almacenId)
-            .orElseThrow(() -> new IllegalArgumentException("El almacén con ID " + almacenId + " no existe. Crealo primero."));
+    if (nombreAlmacen != null && !nombreAlmacen.trim().isEmpty()) {
+      return almacenRepository.findByNombre(nombreAlmacen)
+              .orElseGet(() -> {
+                Almacen nAlmacen = new Almacen();
+                nAlmacen.setNombre(nombreAlmacen);
+                nAlmacen.setDireccion("Dirección por defecto");
+                nAlmacen.setActivo(true);
+                return almacenRepository.save(nAlmacen);
+              });
+    }
+
+    return almacenRepository.findByNombre("Almacén Central")
+            .orElseGet(() -> {
+              Almacen nAlmacen = new Almacen();
+              nAlmacen.setNombre("Almacén Central");
+              nAlmacen.setDireccion("Dirección Principal");
+              nAlmacen.setActivo(true);
+              return almacenRepository.save(nAlmacen);
+            });
   }
 }

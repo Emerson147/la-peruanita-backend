@@ -73,20 +73,33 @@ public class ProductoDtoMapper {
     response.setStock(variante.getStockTotal());
     response.setBarcode(variante.getBarcode());
     response.setTieneStock(variante.tieneStock());
+    
+    if (variante.getInventarios() != null && !variante.getInventarios().isEmpty()) {
+      com.emersondev.domain.model.Inventario inv = variante.getInventarios().get(0);
+      response.setAlmacenId(inv.getAlmacenId());
+      response.setAlmacenName(inv.getNombreAlmacen());
+    } else {
+      response.setAlmacenId(variante.getAlmacenId());
+      response.setAlmacenName(variante.getAlmacenName());
+    }
+    
     return response;
   }
 
   private Variante toVarianteDomain(VarianteRequest request) {
     Variante variante = new Variante();
+    variante.setId(request.getId());
     variante.setSize(request.getSize());
     variante.setColor(request.getColor());
     variante.setBarcode(request.getBarcode());
+    variante.setAlmacenId(request.getAlmacenId());
+    variante.setAlmacenName(request.getAlmacenName());
 
     if (request.getStock() != null) {
       com.emersondev.domain.model.Inventario inv = new com.emersondev.domain.model.Inventario();
       inv.setStock(request.getStock());
       inv.setAlmacenId(request.getAlmacenId());
-      inv.setNombreAlmacen(request.getNombreAlmacen());
+      inv.setNombreAlmacen(request.getAlmacenName());
       variante.setInventarios(java.util.List.of(inv));
     }
     return variante;

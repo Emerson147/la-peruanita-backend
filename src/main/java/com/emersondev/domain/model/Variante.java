@@ -16,11 +16,15 @@ public class Variante {
 
   private UUID id;
   private UUID productId;
+  private UUID almacenId;
   private String size;
   private String color;
   private String barcode;
   private Long version;
+  private String almacenName;
   private List<Inventario> inventarios;
+
+
 
   public Integer getStockTotal() {
     if (this.inventarios == null) return 0;
