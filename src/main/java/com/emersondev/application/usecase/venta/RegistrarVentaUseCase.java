@@ -80,8 +80,8 @@ public class RegistrarVentaUseCase {
       }
     }
 
-    // PASO 6 — Descontar stock de cada producto en el almacén
-    descontarStock(itemsProcesados, venta.getAlmacenId());
+    // PASO 6 — Descontar stock de cada producto, sin importar en qué almacén esté
+    descontarStock(itemsProcesados);
 
     return ventaGuardada;
   }
@@ -117,21 +117,22 @@ public class RegistrarVentaUseCase {
     }).toList();
   }
 
-  private void descontarStock(List<VentaItem> items, UUID almacenId) {
-    if (almacenId == null) {
-      throw new IllegalArgumentException("El Almacén es obligatorio para descontar el stock");
-    }
-
+  private void descontarStock(List<VentaItem> items) {
     items.forEach(item -> {
-      com.emersondev.domain.model.Inventario inv = inventarioRepository
-          .findByVarianteIdAndAlmacenId(item.getVarianteId(), almacenId)
-          .orElseThrow(
-              () -> new StockInsuficienteException("No hay registro de inventario para la variante en este almacén."));
+      List<com.emersondev.domain.model.Inventario> inventarios = inventarioRepository
+          .findByVarianteId(item.getVarianteId());
+
+      if (inventarios.isEmpty()) {
+        throw new StockInsuficienteException("No hay registro de inventario para la variante: " + item.getVarianteId());
+      }
+
+      // Tomamos el inventario donde realmente esté la variante
+      com.emersondev.domain.model.Inventario inv = inventarios.get(0);
 
       inv.descontarStock(item.getQuantity());
       inventarioRepository.save(inv);
-      log.info("Stock descontado del inventario - Variante: {}, Almacén: {}, Cantidad: {}", item.getVarianteId(),
-          almacenId, item.getQuantity());
+      log.info("Stock descontado del inventario - Variante: {}, Almacén real: {}, Cantidad: {}", 
+          item.getVarianteId(), inv.getAlmacenId(), item.getQuantity());
     });
   }
 
