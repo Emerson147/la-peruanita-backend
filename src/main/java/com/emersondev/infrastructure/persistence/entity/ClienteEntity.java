@@ -26,6 +26,9 @@ public class ClienteEntity {
   @Column(nullable = false)
   private String name;
 
+  @Column(name = "document_number", unique = true)
+  private String documentNumber;
+
   @Column
   private String phone;
 

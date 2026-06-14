@@ -13,6 +13,7 @@ public class ClienteDtoMapper {
 
     Cliente cliente = new Cliente();
     cliente.setName(request.getName());
+    cliente.setDocumentNumber(request.getDocumentNumber());
     cliente.setPhone(request.getPhone());
     cliente.setEmail(request.getEmail());
     cliente.setAddress(request.getAddress());
@@ -27,6 +28,7 @@ public class ClienteDtoMapper {
     ClienteResponse response = new ClienteResponse();
     response.setId(cliente.getId());
     response.setName(cliente.getName());
+    response.setDocumentNumber(cliente.getDocumentNumber());
     response.setPhone(cliente.getPhone());
     response.setEmail(cliente.getEmail());
     response.setAddress(cliente.getAddress());

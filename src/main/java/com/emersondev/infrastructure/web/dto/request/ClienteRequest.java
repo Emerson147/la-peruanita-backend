@@ -13,6 +13,7 @@ public class ClienteRequest {
   @NotBlank(message = "El nombre es obligatorio")
   private String name;
 
+  private String documentNumber;
   private String phone;
   private String email;
   private String address;

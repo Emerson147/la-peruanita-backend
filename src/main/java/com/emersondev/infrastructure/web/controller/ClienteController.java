@@ -2,6 +2,7 @@ package com.emersondev.infrastructure.web.controller;
 
 import com.emersondev.application.usecase.cliente.ActualizarClienteUseCase;
 import com.emersondev.application.usecase.cliente.CrearClienteUseCase;
+import com.emersondev.application.usecase.cliente.EliminarClienteUseCase;
 import com.emersondev.application.usecase.cliente.ObtenerClientesUseCase;
 import com.emersondev.domain.exception.ClienteNotFoundException;
 import com.emersondev.domain.model.Cliente;
@@ -30,6 +31,7 @@ public class ClienteController {
   private final CrearClienteUseCase crearClienteUseCase;
   private final ObtenerClientesUseCase obtenerClientesUseCase;
   private final ActualizarClienteUseCase actualizarClienteUseCase;
+  private final EliminarClienteUseCase eliminarClienteUseCase;
   private final ClienteDtoMapper mapper;
 
   // POST /api/clientes
@@ -91,5 +93,12 @@ public class ClienteController {
     Cliente actualizado = actualizarClienteUseCase
             .ejecutar(id, mapper.toDomain(request));
     return ResponseEntity.ok(mapper.toResponse(actualizado));
+  }
+
+  // DELETE /api/clientes/{id}
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> eliminar(@PathVariable UUID id) {
+    eliminarClienteUseCase.ejecutar(id);
+    return ResponseEntity.noContent().build();
   }
 }

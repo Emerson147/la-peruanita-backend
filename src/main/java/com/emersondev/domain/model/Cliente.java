@@ -18,6 +18,7 @@ public class Cliente {
 
   private UUID id;
   private String name;
+  private String documentNumber;
   private String phone;
   private String email;
   private String address;
@@ -55,6 +56,7 @@ public class Cliente {
   // Regla de negocio — actualizar perfil con datos nuevos (solo si no son nulos)
   public void actualizarPerfil(Cliente datosNuevos) {
     if (datosNuevos.getName() != null) this.name = datosNuevos.getName();
+    if (datosNuevos.getDocumentNumber() != null) this.documentNumber = datosNuevos.getDocumentNumber();
     if (datosNuevos.getPhone() != null) this.phone = datosNuevos.getPhone();
     if (datosNuevos.getEmail() != null) this.email = datosNuevos.getEmail();
     if (datosNuevos.getAddress() != null) this.address = datosNuevos.getAddress();

@@ -13,6 +13,7 @@ public class ClienteMapper {
     ClienteEntity entity = new ClienteEntity();
     entity.setId(cliente.getId());
     entity.setName(cliente.getName());
+    entity.setDocumentNumber(cliente.getDocumentNumber());
     entity.setPhone(cliente.getPhone());
     entity.setEmail(cliente.getEmail());
     entity.setAddress(cliente.getAddress());
@@ -32,6 +33,7 @@ public class ClienteMapper {
     Cliente cliente = new Cliente();
     cliente.setId(entity.getId());
     cliente.setName(entity.getName());
+    cliente.setDocumentNumber(entity.getDocumentNumber());
     cliente.setPhone(entity.getPhone());
     cliente.setEmail(entity.getEmail());
     cliente.setAddress(entity.getAddress());

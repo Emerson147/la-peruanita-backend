@@ -9,6 +9,7 @@ public class ClienteResponse {
 
   private UUID id;
   private String name;
+  private String documentNumber;
   private String phone;
   private String email;
   private String address;
@@ -25,6 +26,9 @@ public class ClienteResponse {
 
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
+
+  public String getDocumentNumber() { return documentNumber; }
+  public void setDocumentNumber(String documentNumber) { this.documentNumber = documentNumber; }
 
   public String getPhone() { return phone; }
   public void setPhone(String phone) { this.phone = phone; }
