@@ -55,6 +55,22 @@ public class GlobalExceptionHandler {
     return ResponseEntity.badRequest().body(response);
   }
 
+  // Error 404 - Ruta no encontrada (NoResourceFoundException en Spring Boot 3.2+)
+  @ExceptionHandler(org.springframework.web.servlet.resource.NoResourceFoundException.class)
+  public ResponseEntity<Map<String, Object>> handleNoResourceFound(org.springframework.web.servlet.resource.NoResourceFoundException ex) {
+    log.warn("Ruta no encontrada: {}", ex.getMessage());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(buildError(404, "La ruta de la API solicitada no existe."));
+  }
+
+  // Error 400 - Argumentos ilegales
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
+    log.warn("Argumento inválido: {}", ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(buildError(400, ex.getMessage()));
+  }
+
   // Error 500 - cualquier otro error inesperado
   @ExceptionHandler(Exception.class)
   public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
