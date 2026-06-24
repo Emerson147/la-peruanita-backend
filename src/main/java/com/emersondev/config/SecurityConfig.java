@@ -30,138 +30,138 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final JwtAuthenticationFilter jwtAuthFilter;
-  private final UserDetailsService userDetailsService;
+        private final JwtAuthenticationFilter jwtAuthFilter;
+        private final UserDetailsService userDetailsService;
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(
-          HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain securityFilterChain(
+                        HttpSecurity http) throws Exception {
 
-    http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
+                http
+                                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(auth -> auth
 
-                    // Público — login y registro
-                    .requestMatchers("/api/auth/**").permitAll()
+                                                // Público — login y registro
+                                                .requestMatchers("/api/auth/**").permitAll()
 
-                    // Swagger — público para desarrollo
-                    .requestMatchers(
-                            "/swagger-ui/**",
-                            "/v3/api-docs/**",
-                            "/swagger-ui.html").permitAll()
+                                                // Swagger — público para desarrollo
+                                                .requestMatchers(
+                                                                "/swagger-ui/**",
+                                                                "/v3/api-docs/**",
+                                                                "/swagger-ui.html")
+                                                .permitAll()
 
-                    // Solo ADMIN puede crear/editar/eliminar productos
-                    .requestMatchers(HttpMethod.POST,
-                            "/api/productos/**")
-                    .hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT,
-                            "/api/productos/**")
-                    .hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE,
-                            "/api/productos/**")
-                    .hasRole("ADMIN")
+                                                // Solo ADMIN puede crear/editar/eliminar productos
+                                                .requestMatchers(HttpMethod.POST,
+                                                                "/api/productos/**")
+                                                .hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.PUT,
+                                                                "/api/productos/**")
+                                                .hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.DELETE,
+                                                                "/api/productos/**")
+                                                .hasRole("ADMIN")
 
-                    // ADMIN y VENDOR pueden ver productos
-                    .requestMatchers(HttpMethod.GET,
-                            "/api/productos/**")
-                    .hasAnyRole("ADMIN", "VENDOR")
+                                                // ADMIN y VENDEDOR pueden ver productos
+                                                .requestMatchers(HttpMethod.GET,
+                                                                "/api/productos/**")
+                                                .hasAnyRole("ADMIN", "VENDEDOR")
 
-                    // Solo ADMIN ve dashboard y liquidación
-                    .requestMatchers("/api/dashboard/**")
-                    .hasRole("ADMIN")
-                    .requestMatchers("/api/liquidacion/**")
-                    .hasRole("ADMIN")
+                                                // Solo ADMIN ve dashboard y liquidación
+                                                .requestMatchers("/api/dashboard/**")
+                                                .hasRole("ADMIN")
+                                                .requestMatchers("/api/liquidacion/**")
+                                                .hasRole("ADMIN")
 
-                    // ADMIN y VENDOR pueden registrar ventas
-                    .requestMatchers("/api/ventas/**")
-                    .hasAnyRole("ADMIN", "VENDOR")
+                                                // ADMIN y VENDEDOR pueden registrar ventas
+                                                .requestMatchers("/api/ventas/**")
+                                                .hasAnyRole("ADMIN", "VENDEDOR")
 
-                    // ADMIN, VENDOR pueden gestionar clientes
-                    .requestMatchers("/api/clientes/**")
-                    .hasAnyRole("ADMIN", "VENDOR")
+                                                // ADMIN, VENDEDOR pueden gestionar clientes
+                                                .requestMatchers("/api/clientes/**")
+                                                .hasAnyRole("ADMIN", "VENDEDOR")
 
-                    // ADMIN puede registrar movimientos
-                    .requestMatchers(HttpMethod.POST,
-                            "/api/movimientos/**")
-                    .hasRole("ADMIN")
+                                                // ADMIN puede registrar movimientos
+                                                .requestMatchers(HttpMethod.POST,
+                                                                "/api/movimientos/**")
+                                                .hasRole("ADMIN")
 
-                    // ADMIN, VENDOR pueden ver movimientos
-                    .requestMatchers(HttpMethod.GET,
-                            "/api/movimientos/**")
-                    .hasAnyRole("ADMIN", "VENDOR")
+                                                // ADMIN, VENDEDOR pueden ver movimientos
+                                                .requestMatchers(HttpMethod.GET,
+                                                                "/api/movimientos/**")
+                                                .hasAnyRole("ADMIN", "VENDEDOR")
 
-                    // ADMIN puede gestionar almacenes (CRUD completo)
-                    .requestMatchers(HttpMethod.POST,
-                            "/api/almacenes/**")
-                    .hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT,
-                            "/api/almacenes/**")
-                    .hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE,
-                            "/api/almacenes/**")
-                    .hasRole("ADMIN")
+                                                // ADMIN puede gestionar almacenes (CRUD completo)
+                                                .requestMatchers(HttpMethod.POST,
+                                                                "/api/almacenes/**")
+                                                .hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.PUT,
+                                                                "/api/almacenes/**")
+                                                .hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.DELETE,
+                                                                "/api/almacenes/**")
+                                                .hasRole("ADMIN")
 
-                    // ADMIN y VENDOR pueden ver almacenes (necesario para el select de ventas)
-                    .requestMatchers(HttpMethod.GET,
-                            "/api/almacenes/**")
-                    .hasAnyRole("ADMIN", "VENDOR")
+                                                // ADMIN y VENDEDOR pueden ver almacenes (necesario para el select de
+                                                // ventas)
+                                                .requestMatchers(HttpMethod.GET,
+                                                                "/api/almacenes/**")
+                                                .hasAnyRole("ADMIN", "VENDEDOR")
 
-                    .requestMatchers("/api/gastos/**")
-                    .hasRole("ADMIN")
+                                                .requestMatchers("/api/gastos/**")
+                                                .hasRole("ADMIN")
 
-                    .requestMatchers("/api/gamification/**")
-                    .hasAnyRole("ADMIN", "VENDOR")
+                                                .requestMatchers("/api/gamification/**")
+                                                .hasAnyRole("ADMIN", "VENDEDOR")
 
-                    .requestMatchers("/api/reportes/**")
-                    .hasRole("ADMIN")
+                                                .requestMatchers("/api/reportes/**")
+                                                .hasRole("ADMIN")
 
-                    // Cualquier otra ruta requiere autenticación
-                    .anyRequest().authenticated())
+                                                // Cualquier otra ruta requiere autenticación
+                                                .anyRequest().authenticated())
 
-            .sessionManagement(session -> session
-                    .sessionCreationPolicy(
-                            SessionCreationPolicy.STATELESS))
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(
+                                                                SessionCreationPolicy.STATELESS))
 
-            .authenticationProvider(authenticationProvider())
+                                .authenticationProvider(authenticationProvider())
 
-            .addFilterBefore(jwtAuthFilter,
-                    UsernamePasswordAuthenticationFilter.class);
+                                .addFilterBefore(jwtAuthFilter,
+                                                UsernamePasswordAuthenticationFilter.class);
 
-    return http.build();
-  }
+                return http.build();
+        }
 
-  @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    // Permite cualquier origen (frontend) temporalmente para desarrollo/producción
-    configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+                CorsConfiguration configuration = new CorsConfiguration();
+                // Permite cualquier origen (frontend) temporalmente para desarrollo/producción
+                configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+                configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-  }
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                return source;
+        }
 
+        @Bean
+        public AuthenticationProvider authenticationProvider() {
+                DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+                provider.setUserDetailsService(userDetailsService);
+                provider.setPasswordEncoder(passwordEncoder());
+                return provider;
+        }
 
-  @Bean
-  public AuthenticationProvider authenticationProvider() {
-    DaoAuthenticationProvider provider =
-            new DaoAuthenticationProvider();
-    provider.setUserDetailsService(userDetailsService);
-    provider.setPasswordEncoder(passwordEncoder());
-    return provider;
-  }
+        @Bean
+        public AuthenticationManager authenticationManager(
+                        AuthenticationConfiguration config) throws Exception {
+                return config.getAuthenticationManager();
+        }
 
-  @Bean
-  public AuthenticationManager authenticationManager(
-          AuthenticationConfiguration config) throws Exception {
-    return config.getAuthenticationManager();
-  }
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 }

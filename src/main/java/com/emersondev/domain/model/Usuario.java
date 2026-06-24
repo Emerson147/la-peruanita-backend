@@ -18,7 +18,7 @@ public class Usuario {
   private String nombre;
   private String email;
   private String password;
-  private String rol; // ADMIN o VENDOR
+  private String rol; // ADMIN o VENDEDOR
   private boolean activo;
   private LocalDateTime createdAt;
 
@@ -28,7 +28,7 @@ public class Usuario {
   }
 
   public boolean esVendedor() {
-    return "VENDOR".equals(this.rol);
+    return "VENDEDOR".equals(this.rol);
   }
 
 

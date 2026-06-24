@@ -4,6 +4,7 @@ import com.emersondev.domain.model.Producto;
 import com.emersondev.domain.model.LiquidacionProducto;
 import com.emersondev.domain.model.Venta;
 import com.emersondev.domain.repository.ProductoRepository;
+import com.emersondev.domain.repository.VarianteRepository;
 import com.emersondev.domain.repository.VentaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public class LiquidacionService {
 
   private final ProductoRepository productoRepository;
+  private final VarianteRepository varianteRepository;
   private final VentaRepository ventaRepository;
   private final List<EstrategiaLiquidacion> estrategias;
 
@@ -36,6 +38,11 @@ public class LiquidacionService {
     log.info("Calculando liquidación urgente — modelo ferias DenRaf");
 
     List<Producto> productos = productoRepository.findByStatus("active");
+
+    // Cargar las variantes (con sus inventarios) para tener el stock real
+    productos.forEach(p -> 
+        p.asignarVariantes(varianteRepository.findByProductId(p.getId()))
+    );
 
     List<LiquidacionProducto> liquidaciones = productos.stream()
             .map(this::procesarProducto)
